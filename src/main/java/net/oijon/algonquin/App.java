@@ -23,7 +23,7 @@ public class App
 		//i dont like how this is hard-coded in, extIPA exists....
 		//TODO: find a way to get this read in from a file
 		
-		//g and ɡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
+		//g and É¡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
 		char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
     	char[] diacriticList = {'̥', '̬', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻', '̃', 'ⁿ', 'ˡ', '̚'};
         String[] fileNames = new String[input.length()];
@@ -71,7 +71,7 @@ public class App
         	
         	//TODO: handle supersegmentals
         	//i am very much hoping that there is some way to simply edit the .wav files in batch
-        	// and that i will not have to say ɢ̰̞ⁿʰ̩ʷʲˠˤˡ
+        	// and that i will not have to say É¢Ì°Ìžâ�¿Ê°Ì©Ê·Ê²Ë Ë¤Ë¡
         
         }
 		return fileNames;
