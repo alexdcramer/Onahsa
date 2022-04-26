@@ -1,11 +1,31 @@
 package net.oijon.algonquin;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.Mixer.Info;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import edu.princeton.cs.introcs.StdAudio;
 
 public class App 
 {
-	public void parseSound(String input) {
-		char[] ipaList = new char[107];
-    	char[] diacriticList = new char[48];
+	public static String[] getFileNames(String input) {
+		//i dont like how this is hard-coded in, extIPA exists....
+		//TODO: find a way to get this read in from a file
+		
+		//g and ɡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
+		char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
+    	char[] diacriticList = {'̥', '̬', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻', '̃', 'ⁿ', 'ˡ', '̚'};
         String[] fileNames = new String[input.length()];
         
         int inputLength = input.length();
@@ -14,6 +34,14 @@ public class App
         for (int i = 0; i < inputLength; i++) {
         	char c = input.charAt(i);
         	boolean isDiacritic = false;
+        	
+        	//handles spaces.
+        	if (c == ' ') {
+        		//if space, set to space.wav
+        		fileNames[currentFileName] = "space";
+        		currentFileName++;
+        	}
+        	
         	for (int j = 0; j < diacriticList.length; j++) {
         		if (c == diacriticList[j]) {
         			isDiacritic = true;
@@ -40,17 +68,40 @@ public class App
 	        		}
 	        	}
         	}
+        	
+        	//TODO: handle supersegmentals
+        	//i am very much hoping that there is some way to simply edit the .wav files in batch
+        	// and that i will not have to say ɢ̰̞ⁿʰ̩ʷʲˠˤˡ
+        
         }
-        
-        //TODO: get input, then for each IPA character, load a .wav file for that
-        //char, then splice it together into an output
-        
-        //it will have to separate diacritics though...
-        //perhaps have diacritics in it's own array, then scan for them before going
-        //to the next sound?
+		return fileNames;
+	}
+	public static void createAudio(String[] fileNames) {
+		for (int i = 0; i < fileNames.length; i++) {
+			try {
+			    Clip clip = AudioSystem.getClip();
+			    System.out.println("/src/main/resources/default/" + fileNames[i] + ".wav");
+			    InputStream is = StdAudio.class.getResourceAsStream("/default/" + fileNames[i] + ".wav");
+			    AudioInputStream ais = AudioSystem.getAudioInputStream(is);
+			    clip.open(ais);
+			    clip.start();
+			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
+			    {
+			    }
+			  }
+			  catch (UnsupportedAudioFileException e) {
+			    throw new IllegalArgumentException("unsupported audio format: '" + fileNames[i] + "'", e);
+			  }
+			  catch (LineUnavailableException e) {
+			    throw new IllegalArgumentException("could not play '" + fileNames[i] + "'", e);
+			  }
+			  catch (IOException e) {
+			    throw new IllegalArgumentException("could not play '" + fileNames[i] + "'", e);
+			  }
+		}
 	}
     public static void main( String[] args )
     {
-    	        
+    	createAudio(getFileNames("hɛloʊ ʋoɹld"));
     }
 }
