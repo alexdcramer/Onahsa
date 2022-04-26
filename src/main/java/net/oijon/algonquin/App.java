@@ -1,10 +1,14 @@
 package net.oijon.algonquin;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
@@ -81,8 +85,9 @@ public class App
 		for (int i = 0; i < fileNames.length; i++) {
 			try {
 			    Clip clip = AudioSystem.getClip();
-			    InputStream is = StdAudio.class.getResourceAsStream("/default/" + fileNames[i] + ".wav");
-			    AudioInputStream ais = AudioSystem.getAudioInputStream(is);
+			    InputStream is = App.class.getResourceAsStream("/resources/default/" + fileNames[i] + ".wav");
+			    InputStream bis = new BufferedInputStream(is);
+			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
 			    clip.open(ais);
 			    clip.start();
 			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
@@ -105,8 +110,13 @@ public class App
     	Scanner scanner = new Scanner(System.in);
     	String input = null;
     	while (true) {
-    		System.out.println("Type some IPA to pronounce!");
-    		input = scanner.nextLine();
+    		System.out.println("Type some IPA to pronounce!\n");
+    		try {
+    			input = scanner.nextLine();
+    		} catch (NoSuchElementException e) {
+    			System.err.println("Hmm... nothing was inputted... Skipping");
+    			input = " ";
+    		}
     		createAudio(getFileNames(input));
     	}
     	
