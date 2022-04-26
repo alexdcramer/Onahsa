@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -80,7 +81,6 @@ public class App
 		for (int i = 0; i < fileNames.length; i++) {
 			try {
 			    Clip clip = AudioSystem.getClip();
-			    System.out.println("/src/main/resources/default/" + fileNames[i] + ".wav");
 			    InputStream is = StdAudio.class.getResourceAsStream("/default/" + fileNames[i] + ".wav");
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(is);
 			    clip.open(ais);
@@ -102,6 +102,13 @@ public class App
 	}
     public static void main( String[] args )
     {
-    	createAudio(getFileNames("hɛloʊ ʋoɹld"));
+    	Scanner scanner = new Scanner(System.in);
+    	String input = null;
+    	while (true) {
+    		System.out.println("Type some IPA to pronounce!");
+    		input = scanner.nextLine();
+    		createAudio(getFileNames(input));
+    	}
+    	
     }
 }
