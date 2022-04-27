@@ -8,7 +8,8 @@
   <packaging>jar</packaging>
 
   <name>algonquin</name>
-  <url>http://maven.apache.org</url>
+  <description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
+  <url>http://github.com/N3ther/Algonquin-TTS</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -88,4 +89,22 @@
     </plugin>
 	 </plugins>
   </build>
+  <licenses>
+  <license>
+    <name>The Apache License, Version 2.0</name>
+    <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+  </license>
+</licenses>
+ <developers>
+    <developer>
+      <name>Alex Cramer</name>
+      <email>alex@consus.fun</email>
+    </developer>
+  </developers>
+  <scm>
+	  <connection>scm:git:git://github.com/N3ther/Algonquin-TTS.git</connection>
+	  <developerConnection>scm:git:ssh://github.com:N3ther/Algonquin-TTS.git</developerConnection>
+	  <url>http://github.com/N3ther/Algonquin-TTS/tree/master</url>
+	</scm>
+
 </project>
