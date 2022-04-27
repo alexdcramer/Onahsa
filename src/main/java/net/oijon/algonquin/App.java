@@ -85,7 +85,7 @@ public class App
 		for (int i = 0; i < fileNames.length; i++) {
 			try {
 			    Clip clip = AudioSystem.getClip();
-			    InputStream is = App.class.getResourceAsStream("/resources/default/" + fileNames[i] + ".wav");
+			    InputStream is = App.class.getResourceAsStream("/default/" + fileNames[i] + ".wav");
 			    InputStream bis = new BufferedInputStream(is);
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
 			    clip.open(ais);
