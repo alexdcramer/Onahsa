@@ -3,6 +3,8 @@ package net.oijon.algonquin.tts;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -69,7 +71,7 @@ public class IPA
 		return fileNames;
 	}
 	public static String createAudio(String[] fileNames) {
-		String exception = null;
+		String exception = "Successfully played " + Arrays.toString(fileNames);
 		for (int i = 0; i < fileNames.length; i++) {
 			try {
 			    Clip clip = AudioSystem.getClip();
