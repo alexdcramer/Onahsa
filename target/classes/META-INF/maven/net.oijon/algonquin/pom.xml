@@ -4,7 +4,11 @@
 
   <groupId>net.oijon</groupId>
   <artifactId>algonquin</artifactId>
+<<<<<<< Updated upstream
   <version>0.0.1</version>
+=======
+  <version>0.1.1-SNAPSHOT</version>
+>>>>>>> Stashed changes
   <packaging>jar</packaging>
 
   <name>algonquin</name>
