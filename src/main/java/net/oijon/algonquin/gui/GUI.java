@@ -39,6 +39,7 @@ public class GUI extends Application {
 		Label insertIPA = new Label("Insert IPA:");
 		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu ælgonkwɪn tɛkst tu spitʃ");
 		Button pronounceButton = new Button("Pronounce!");
+		pronounceButton.setDefaultButton(true);
 		
 		pronounceButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -100,8 +101,60 @@ public class GUI extends Application {
 		impossible2.setDisable(true);
 		HBox bilabialLateralFricatives = new HBox(impossible1, impossible2);
 		ipaChart.add(bilabialLateralFricatives, 1, 6);
+		Button ʋ̟̥Button = new Button("ʋ̟̥");
+		Button ʋ̟Button = new Button("ʋ̟");
+		HBox bilabialApproximants = new HBox(ʋ̟̥Button, ʋ̟Button);
+		ipaChart.add(bilabialApproximants, 1, 7);
+		Button impossible3 = new Button(" ");
+		impossible3.setDisable(true);
+		Button impossible4 = new Button(" ");
+		impossible4.setDisable(true);
+		HBox bilabialLateralApproximants = new HBox(impossible3, impossible4);
+		ipaChart.add(bilabialLateralApproximants, 1, 8);
+		
+		
+		
 		Label labiodental = new Label("Labiodental");
 		ipaChart.add(labiodental, 2, 0);
+		Button p̪Button = new Button("p̪");
+		Button b̪Button = new Button("b̪");
+		HBox labiodentalPlosives = new HBox(p̪Button, b̪Button);
+		ipaChart.add(labiodentalPlosives, 2, 1);
+		Button ɱ̥Button = new Button("ɱ̥");
+		Button ɱButton = new Button("ɱ");
+		HBox labiodentalNasals = new HBox(ɱ̥Button, ɱButton);
+		ipaChart.add(labiodentalNasals, 2, 2);
+		Button voicelessLabiodentalTrillButton = new Button("̥ʙ̪̥");
+		Button voicedLabiodentalTrillButton = new Button("̥ʙ");
+		HBox labiodentalTrills = new HBox(voicelessLabiodentalTrillButton, voicedLabiodentalTrillButton);
+		ipaChart.add(labiodentalTrills, 2, 3);
+		Button ⱱ̥Button = new Button("ⱱ̥");
+		Button ⱱButton = new Button("ⱱ");
+		HBox labiodentalTaps = new HBox(ⱱ̥Button, ⱱButton);
+		ipaChart.add(labiodentalTaps, 2, 4);
+		Button fButton = new Button("f");
+		Button vButton = new Button("v");
+		HBox labiodentalFricatives = new HBox(fButton, vButton);
+		ipaChart.add(labiodentalFricatives, 2, 5);
+		Button impossible5 = new Button(" ");
+		impossible5.setDisable(true);
+		Button impossible6 = new Button(" ");
+		impossible6.setDisable(true);
+		HBox labiodentalLateralFricatives = new HBox(impossible5, impossible6);
+		ipaChart.add(labiodentalLateralFricatives, 2, 6);
+		Button ʋ̥Button = new Button("ʋ̥");
+		Button ʋButton = new Button("ʋ");
+		HBox labiodentalApproximants = new HBox(ʋ̥Button, ʋButton);
+		ipaChart.add(labiodentalApproximants, 2, 7);
+		Button impossible7 = new Button(" ");
+		impossible7.setDisable(true);
+		Button impossible8 = new Button(" ");
+		impossible8.setDisable(true);
+		HBox labiodentalLateralApproximants = new HBox(impossible7, impossible8);
+		ipaChart.add(labiodentalLateralApproximants, 2, 8);
+		
+		
+		
 		Label dental = new Label("Dental");
 		ipaChart.add(dental, 3, 0);
 		Label alveolar = new Label("Alveolar");
