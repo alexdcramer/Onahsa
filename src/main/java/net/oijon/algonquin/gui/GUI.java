@@ -55,6 +55,13 @@ public class GUI extends Application {
 		ipaChart.setPadding(new Insets(15, 15, 15, 15));
 		
 		Label plosive = new Label("Plosive");
+		Label nasal = new Label("Nasal");
+		Label trill = new Label("Trill");
+		Label tapOrFlap = new Label("Tap or Flap");
+		Label fricative = new Label("Fricative");
+		Label lateralFricative = new Label("Lateral fricative");
+		Label approximant = new Label("Approximant");
+		Label lateralApproximant = new Label("Lateral Approximant");
 		
 		
 		pronounceGrid.add(insertIPA, 0, 1);
