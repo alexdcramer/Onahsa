@@ -48,6 +48,15 @@ public class GUI extends Application {
 	        }
 	    });
 		
+		GridPane ipaChart = new GridPane();
+		ipaChart.setAlignment(Pos.CENTER);
+		ipaChart.setHgap(5);
+		ipaChart.setVgap(5);
+		ipaChart.setPadding(new Insets(15, 15, 15, 15));
+		
+		Label plosive = new Label("Plosive");
+		
+		
 		pronounceGrid.add(insertIPA, 0, 1);
 		pronounceGrid.add(insert, 0, 2);
 		pronounceGrid.add(pronounceButton, 0, 3);
