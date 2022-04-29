@@ -34,7 +34,7 @@ public class GUI extends Application {
 		pronounceGrid.setPadding(new Insets(25, 25, 25, 25));
 		
 		Label insertIPA = new Label("Insert IPA:");
-		TextArea insert = new TextArea();
+		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu ælgonkwɪn tɛkst tu spitʃ");
 		Button pronounceButton = new Button("Pronounce!");
 		
 		pronounceButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -59,6 +59,7 @@ public class GUI extends Application {
 		
 		Scene scene = new Scene(mainBox, 500, 500);
 		primaryStage.setScene(scene);
+		primaryStage.setTitle("Algonquin Text-to-Speach");
 		primaryStage.show();
 		
 		
