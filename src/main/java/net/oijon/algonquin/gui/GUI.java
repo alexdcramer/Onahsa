@@ -153,10 +153,30 @@ public class GUI extends Application {
 		HBox labiodentalLateralApproximants = new HBox(impossible7, impossible8);
 		ipaChart.add(labiodentalLateralApproximants, 2, 8);
 		
-		
-		
 		Label dental = new Label("Dental");
 		ipaChart.add(dental, 3, 0);
+		Button t̪Button = new Button("t̪");
+		Button d̪Button = new Button("d̪");
+		HBox dentalPlosives = new HBox(t̪Button, d̪Button);
+		ipaChart.add(dentalPlosives, 3, 1);
+		Button n̥̪Button = new Button("n̥̪");
+		Button n̪Button = new Button("n̪");
+		HBox dentalNasals = new HBox(n̥̪Button, n̪Button);
+		ipaChart.add(dentalNasals, 3, 2);
+		Button r̥̪Button = new Button("r̥̪");
+		Button r̪Button = new Button("r̪");
+		HBox dentalTrills = new HBox(r̥̪Button, r̪Button);
+		ipaChart.add(dentalTrills, 3, 3);
+		Button ɾ̥̪Button = new Button("ɾ̥̪");
+		Button ɾ̪Button = new Button("ɾ̪");
+		HBox dentalTaps = new HBox(ɾ̥̪Button, ɾ̪Button);
+		ipaChart.add(dentalTaps, 3, 4);
+		Button θButton = new Button("θ");
+		Button ðButton = new Button("ð");
+		HBox dentalFricatives = new HBox(θButton, ðButton);
+		ipaChart.add(dentalFricatives, 3, 5);
+		
+		
 		Label alveolar = new Label("Alveolar");
 		ipaChart.add(alveolar, 4, 0);
 		Label postalveolar = new Label("Postalveolar");
