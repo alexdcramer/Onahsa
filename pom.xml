@@ -30,64 +30,89 @@
 		<artifactId>stdlib</artifactId>
 		<version>1.0.1</version>
 	</dependency>
+	<dependency>
+	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-base</artifactId>
+	    <version>19-ea+5</version>
+	    <type>pom</type>
+	 </dependency>
+	 <dependency>
+	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-graphics</artifactId>
+	    <version>19-ea+5</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-controls</artifactId>
+	    <version>19-ea+5</version>
+	</dependency>
+
   </dependencies>
   
    <build>
 	  <plugins>
 	    <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-source-plugin</artifactId>
-		<executions>
-			<execution>
-				<id>attach-sources</id>
-				<goals>
-					<goal>jar</goal>
-				</goals>
-			</execution>
-		</executions>
-	   </plugin>
-	   <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
+			<artifactId>maven-source-plugin</artifactId>
 			<executions>
 				<execution>
-					<id>attach-javadocs</id>
+					<id>attach-sources</id>
 					<goals>
 						<goal>jar</goal>
 					</goals>
 				</execution>
 			</executions>
-		</plugin>
-		<plugin>
-          <groupId>net.nicoulaj.maven.plugins</groupId>
-          <artifactId>checksum-maven-plugin</artifactId>
-          <version>1.10</version>
-          <executions>
-	          <execution>
-	            <goals>
-	              <goal>artifacts</goal>
-	            </goals>
-	          </execution>
-	        </executions>
+		   </plugin>
+		   <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+	          <groupId>net.nicoulaj.maven.plugins</groupId>
+	          <artifactId>checksum-maven-plugin</artifactId>
+	          <version>1.10</version>
+	          <executions>
+		          <execution>
+		            <goals>
+		              <goal>artifacts</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+		        <configuration>
+		          <!-- put your configurations here -->
+		        </configuration>
+	        </plugin>
+	        <plugin>
+	      <!-- Build an executable JAR -->
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-jar-plugin</artifactId>
+	      <version>3.1.0</version>
+	      <configuration>
+	        <archive>
+	          <manifest>
+	            <addClasspath>true</addClasspath>
+	            <classpathPrefix>lib/</classpathPrefix>
+	            <mainClass>net.oijon.algonquin.gui.Main</mainClass>
+	          </manifest>
+	        </archive>
+	      </configuration>
+	    </plugin>
+	    <plugin>
+	        <groupId>org.openjfx</groupId>
+	        <artifactId>javafx-maven-plugin</artifactId>
+	        <version>0.0.8</version>
 	        <configuration>
-	          <!-- put your configurations here -->
+	            <mainClass>net.oijon.algonquin.gui.Main</mainClass>
 	        </configuration>
-        </plugin>
-        <plugin>
-      <!-- Build an executable JAR -->
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <version>3.1.0</version>
-      <configuration>
-        <archive>
-          <manifest>
-            <addClasspath>true</addClasspath>
-            <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>net.oijon.algonquin.App</mainClass>
-          </manifest>
-        </archive>
-      </configuration>
-    </plugin>
+	    </plugin>
 	 </plugins>
   </build>
   <licenses>
