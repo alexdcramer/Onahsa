@@ -95,21 +95,5 @@ public class IPA
 			  }
 		}
 	}
-    public static void main( String[] args )
-    {
-    	//FIXME: Resource leak!
-    	@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(System.in);
-    	String input = null;
-    	while (true) {
-    		System.out.println("Type some IPA to pronounce!\n");
-    		try {
-    			input = scanner.nextLine();
-    		} catch (NoSuchElementException e) {
-    			System.err.println("Hmm... nothing was inputted... Skipping");
-    			input = " ";
-    		}
-    		createAudio(getFileNames(input));
-    	}
-    }
+   
 }
