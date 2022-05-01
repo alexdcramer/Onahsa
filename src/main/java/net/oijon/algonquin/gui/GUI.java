@@ -48,7 +48,7 @@ public class GUI extends Application {
 	        	console.setText(IPA.createAudio(IPA.getFileNames(insert.getText())));
 	        }
 	    });
-		
+		/**
 		GridPane ipaChart = new GridPane();
 		ipaChart.setAlignment(Pos.CENTER);
 		ipaChart.setHgap(5);
@@ -175,7 +175,18 @@ public class GUI extends Application {
 		Button ðButton = new Button("ð");
 		HBox dentalFricatives = new HBox(θButton, ðButton);
 		ipaChart.add(dentalFricatives, 3, 5);
-		
+		Button ɬ̪Button = new Button("ɬ̪");
+		Button ɮ̪Button = new Button("ɮ̪");
+		HBox dentalLateralFricatives = new HBox(ɬ̪Button, ɮ̪Button);
+		ipaChart.add(dentalLateralFricatives, 3, 6);
+		Button ɹ̥̪Button = new Button("ɹ̥̪");
+		Button ɹ̪Button = new Button("ɹ̪");
+		HBox dentalApproximants = new HBox(ɹ̥̪Button, ɹ̪Button);
+		ipaChart.add(dentalApproximants, 3, 7);
+		Button l̥̪Button = new Button("l̥̪");
+		Button l̪Button = new Button("l̪");
+		HBox lateralApproximants = new HBox(l̥̪Button, l̪Button);
+		ipaChart.add(lateralApproximants, 3, 8);
 		
 		Label alveolar = new Label("Alveolar");
 		ipaChart.add(alveolar, 4, 0);
@@ -193,7 +204,7 @@ public class GUI extends Application {
 		ipaChart.add(pharyngeal, 10, 0);
 		Label glottal = new Label("Glottal");
 		ipaChart.add(glottal, 11, 0);
-		
+		**/
 		
 		pronounceGrid.add(insertIPA, 0, 1);
 		pronounceGrid.add(insert, 0, 2);
@@ -203,7 +214,7 @@ public class GUI extends Application {
 		
 		
 		
-		mainBox.getChildren().addAll(pronounceBox, ipaChart, consoleLabel, console);
+		mainBox.getChildren().addAll(pronounceBox, consoleLabel, console);
 		
 		Scene scene = new Scene(mainBox, 750, 500);
 		primaryStage.setScene(scene);

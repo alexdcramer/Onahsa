@@ -1,6 +1,7 @@
 package net.oijon.algonquin.tts;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.spi.AudioFileWriter;
 
 public class IPA 
 {
@@ -72,6 +74,7 @@ public class IPA
 	}
 	public static String createAudio(String[] fileNames) {
 		String exception = "Successfully played " + Arrays.toString(fileNames);
+		long fileLength = 0;
 		for (int i = 0; i < fileNames.length; i++) {
 			try {
 			    Clip clip = AudioSystem.getClip();
@@ -80,6 +83,7 @@ public class IPA
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
 			    clip.open(ais);
 			    clip.start();
+			    fileLength += clip.getMicrosecondLength();
 			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
 			    {
 			    }
@@ -96,8 +100,15 @@ public class IPA
 				exception = "could not play '" + fileNames[i] + "'" + e.toString() + "\n";
 				return exception;
 			  }
+			
 		}
+		double fileLengthInSeconds = (fileLength/(10000L))/100D;
+		exception += "\nFile length: " + fileLengthInSeconds + " seconds, " + fileLength + " microseconds";
 		return exception;
+	}
+	
+	public static void recordAudio(Clip clip, File file) {
+		
 	}
    
 }
