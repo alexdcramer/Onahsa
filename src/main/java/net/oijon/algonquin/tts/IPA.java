@@ -21,15 +21,17 @@ public class IPA
 		
 		//g and É¡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
 		char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
-    	char[] diacriticList = {'̥', '̬', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻', '̃', 'ⁿ', 'ˡ', '̚'};
-        String[] fileNames = new String[input.length()];
+    	char[] preDiacriticList = {'ᵐ', 'ⁿ', 'ᶯ', 'ᶮ', 'ᵑ'};
+		char[] postDiacriticList = {'̥', '̊', '̬', 'ʰ', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻','̃', 'ˡ', '̚', '-'};
+    	String[] fileNames = new String[input.length()];
         
         int inputLength = input.length();
         int currentFileName = 0;
         
         for (int i = 0; i < inputLength; i++) {
         	char c = input.charAt(i);
-        	boolean isDiacritic = false;
+        	boolean isPreDiacritic = false;
+        	boolean isPostDiacritic = false;
         	
         	//handles spaces.
         	if (c == ' ') {
@@ -38,10 +40,23 @@ public class IPA
         		currentFileName++;
         	}
         	
-        	for (int j = 0; j < diacriticList.length; j++) {
-        		if (c == diacriticList[j]) {
-        			isDiacritic = true;
-        			//shouldnt actually be a problem, but just in case...
+        	for (int l = 0; l < preDiacriticList.length; l++) {
+        		if (c == preDiacriticList[l]) {
+        			isPreDiacritic = true;
+        			if (currentFileName != fileNames.length) {
+        				currentFileName++;
+        				fileNames[currentFileName] += "" + c;
+        				currentFileName--;
+        			}
+        		} else {
+    				System.err.println("Diacritic attempted to be added to non-existant character! Skipping...");
+    			}
+        	}
+        	 
+        	for (int j = 0; j < postDiacriticList.length; j++) {
+        		if (c == postDiacriticList[j]) {
+        			isPostDiacritic = true;
+        			//shouldnt actually be a problem, but just in case...]
         			if (currentFileName != 0) {
             			//if diacritic, add to file name of previous char.
         				currentFileName--;
@@ -49,17 +64,16 @@ public class IPA
         				currentFileName++;
         			} else {
         				System.err.println("Diacritic attempted to be added to non-existant character! Skipping...");
-        				//TODO: check for diacritics that are added to the beginning of a consonant
         			}
         			
         		}
         	}
         	//skips if the character was a diacritic, should speed things up...
-        	if (isDiacritic != true) {
+        	if (isPostDiacritic != true || isPreDiacritic != true) {
 	        	for (int k = 0; k < ipaList.length; k++) {
 	        		if (c == ipaList[k]) {
 	        			//sets file name to character and goes to the next file name
-	        			fileNames[currentFileName] = "" + c; //this is stupid but otherwise i cant cast from char to string
+	        			fileNames[currentFileName] += "" + c; //this is stupid but otherwise i cant cast from char to string
 	        			currentFileName++;
 	        		}
 	        	}
