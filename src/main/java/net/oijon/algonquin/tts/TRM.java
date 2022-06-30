@@ -12,7 +12,7 @@ import javax.sound.sampled.AudioSystem;
 // Highly experimental.
 public class TRM {
 
-	public static void makeSound() throws IOException {
+	public static void makeTestSound() throws IOException {
 		final double sampleRate = 44100.0;
         final double frequency = 440;
         final double frequency2 = 90;
@@ -56,6 +56,11 @@ public class TRM {
         AudioInputStream audioInputStream = new AudioInputStream(bais, format, buffer.length);
         AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
         audioInputStream.close();
+	}
+	
+	public static String createAudio(String input) {
+		String exception = "";
+		return exception;
 	}
 	
 }
