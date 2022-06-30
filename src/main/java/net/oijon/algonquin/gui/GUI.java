@@ -1,12 +1,15 @@
 package net.oijon.algonquin.gui;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -24,6 +27,14 @@ public class GUI extends Application {
 		VBox mainBox = new VBox();
 		mainBox.setAlignment(Pos.CENTER);
 		mainBox.setSpacing(5);
+		
+		ObservableList<String> options = 
+		    FXCollections.observableArrayList(
+		        "Classic",
+		        "TRM (highly experimental)"
+		    );
+		final ComboBox synthType = new ComboBox(options);
+		synthType.setValue("Classic");
 		
 		HBox pronounceBox = new HBox();
 		pronounceBox.setAlignment(Pos.CENTER);
@@ -45,7 +56,13 @@ public class GUI extends Application {
 
 	        @Override
 	        public void handle(ActionEvent event) {
-	        	console.setText(IPA.createAudio(IPA.getFileNames(insert.getText())));
+	        	if (synthType.getValue().equals("Classic")) {
+	        		console.setText(IPA.createAudio(IPA.getFileNames(insert.getText())));
+	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
+	        		console.setText("Sorry, but TRM isn't quite ready yet. However, you can use classic instead!");
+	        	} else {
+	        		console.setText("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
+	        	}
 	        }
 	    });
 		/**
@@ -207,6 +224,7 @@ public class GUI extends Application {
 		**/
 		
 		pronounceGrid.add(insertIPA, 0, 1);
+		pronounceGrid.add(synthType, 1, 1);
 		pronounceGrid.add(insert, 0, 2);
 		pronounceGrid.add(pronounceButton, 0, 3);
 		
