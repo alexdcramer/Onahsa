@@ -63,4 +63,18 @@ public class TRM {
 		return exception;
 	}
 	
+	public static String createSchwaTubeTest() {
+		String exception = "";
+		
+		int sampleRate = 2018; // L = c/F, where L is the length (17cm), c is the speed of sound (cm/s), and F is the sampling frequency
+		float delayLine[][] = new float[sampleRate][2];
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < sampleRate; j++) {
+				delayLine[j][i] = (delayLine[j-1][i]);
+			}
+		}
+		
+		return exception;
+	}
+	
 }
