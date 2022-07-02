@@ -9,7 +9,7 @@ public class Voicebox {
 		this.intensity = intensity;
 	}
 	public float frame() {
-		float amount = (float) ((Math.sin(frameCount*(float)(1F/8F)))*intensity);
+		float amount = (float) (((Math.sin(frameCount*(float)(1F/8F)))*(Math.sin(frameCount*(float)(1F/16F)))*(Math.sin(frameCount*(float)(1F/32F)))*(Math.sin(frameCount*(float)(1F/64F))))*intensity);
 		frameCount++;
 		return amount;
 	}
