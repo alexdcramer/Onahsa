@@ -130,6 +130,7 @@ public class IPA
 			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
 			    {
 			    }
+			    is.close();
 			  }
 			  catch (UnsupportedAudioFileException e) {
 				exception = "unsupported audio format: '" + fileNames[i] + "' - " + e.toString() + "\n";

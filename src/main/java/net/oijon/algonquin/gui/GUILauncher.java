@@ -2,7 +2,7 @@ package net.oijon.algonquin.gui;
 
 import java.io.IOException;
 
-import net.oijon.algonquin.tts.TRM;
+import net.oijon.algonquin.tts.trm.TRM;
 
 public class GUILauncher {
 
