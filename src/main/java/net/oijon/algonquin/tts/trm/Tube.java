@@ -5,7 +5,7 @@ public class Tube {
 	private int length;
 	private int sampleRate;
 	private final int speedOfSound = 34300; //in cm/s
-	private double loss = 0.97; //3% loss
+	private double loss = 1; //no loss
 	private float[][] delayLine;
 	
 	public Tube (int length) {
@@ -13,27 +13,35 @@ public class Tube {
 		// L = c/F, where L is the length (17cm), c is the speed of sound (cm/s), and F is the sampling frequency
 		sampleRate = speedOfSound/this.length;
 		//Creates the delay array based off 
-		delayLine = new float[sampleRate][2];
+		delayLine = new float[2][sampleRate];
 	}
 	
 	//create and manage a delay line
-	//returns false if there is still room before sound makes its way out
-	//returns true if its pushing the sound out to the next tube
-	//this is done by checking if the last part of the array for the sample rate is filled.
-	public boolean push(float pushAmount) {
-		for (int i = 0; i < sampleRate-1; i++) {
-			delayLine[i+1][0] = delayLine[i][0];
-		}
+	public void push(float pushAmount) {
+		System.out.println("pushamount: " + pushAmount);
+		float[][] newDelayLine = new float[2][delayLine[0].length];
 		delayLine[0][0] = pushAmount;
-		delayLine[sampleRate-1][1] = -1*delayLine[sampleRate-1][0]; 
-		for (int i = sampleRate-1; i > 0; i--) {
-			delayLine[i-1][0] = delayLine[i][0];
+		for (int i = 1; i < delayLine[0].length-1; i++) {
+			newDelayLine[0][i] = delayLine[0][i-1]*(float)loss;
+			//System.out.println(newDelayLine[0][i]); //debug
 		}
-		if (Float.isNaN(delayLine[sampleRate-1][0])) {
-			return false;
-		} else {
-			return true;
+		
+		newDelayLine[1][0] = delayLine[0][delayLine[0].length-1];
+		
+		for (int i = 1; i < delayLine[1].length-1; i++) {
+			newDelayLine[1][i] = delayLine[1][i-1]*(float)loss;
+			//System.out.println(newDelayLine[1][i]); //debug
 		}
+		
+		for(int i = 0; i < newDelayLine[1].length / 2; i++)
+		{
+		    float temp = newDelayLine[1][i];
+		    newDelayLine[1][i] = newDelayLine[1][newDelayLine[1].length - i - 1];
+		    newDelayLine[1][newDelayLine[1].length - i - 1] = temp;
+		}
+		
+		newDelayLine[0][0] += newDelayLine[1][0];
+		delayLine = newDelayLine;
 	}
 	
 	//convert to 44.1 kHz by adding new data to follow the slope.
@@ -66,8 +74,8 @@ public class Tube {
 	
 	public float[] out() {
 		float[] out = new float[2];
-		out[0] = delayLine[sampleRate-1][0];
-		out[1] = delayLine[sampleRate-1][1];
+		out[0] = delayLine[0][sampleRate-1];
+		out[1] = delayLine[1][sampleRate-1];
 		return out;
 	}
 	

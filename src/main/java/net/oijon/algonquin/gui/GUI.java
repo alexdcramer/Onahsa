@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -63,6 +64,10 @@ public class GUI extends Application {
 		
 		Label insertIPA = new Label("Insert IPA:");
 		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu ælgonkwɪn tɛkst tu spitʃ");
+		
+		Label fileNameLabel = new Label("File Name");
+		TextField fileNameField = new TextField("output");
+		VBox fileName = new VBox(fileNameLabel, fileNameField);
 		Button pronounceButton = new Button("Pronounce!");
 		pronounceButton.setDefaultButton(true);
 		
@@ -71,7 +76,7 @@ public class GUI extends Application {
 	        @Override
 	        public void handle(ActionEvent event) {
 	        	if (synthType.getValue().equals("Classic")) {
-	        		console.setText(IPA.createAudio(IPA.getFileNames(insert.getText())));
+	        		console.setText(IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText()));
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		
 	        		//String consoleResult = "Generated from a value of 1: " + Float.toString(tube.generate(1)) + "\n";
@@ -84,7 +89,7 @@ public class GUI extends Application {
 	        		message += "-----BEGIN TESTTUBE-----\n";
 	        		message += TRM.createTestTube() + "\n";
 	        		message += "-----END TESTTUBE-----\n";
-	        		message += "-----BEGIN SINEWAVE-----\n";
+	        		message += "-----BEGIN RAW OUTPUT-----\n";
 	        		message += "Now, a .wav file will be created of a pure vocal output. This should be just a sine wave.\n";
 	        		try {
 						message += TRM.createTestWave();
@@ -118,7 +123,38 @@ public class GUI extends Application {
 	        		message += "If all went to plan, and you did not see any exceptions, you just heard the beep that will form the voicebox's raw output!\n";
 	        		message += "Of course, this won't be what the end product sounds like, the end product will have to go through several tubes.\n";
 	        		message += "These tubes represent parts of the mouth and nasal cavity, which should be able to approximate the sound of speaking!\n";
-	        		message += "-----END SINEWAVE-----\n";
+	        		message += "-----END RAW OUTPUT-----\n";
+	        		message += "-----BEGIN 17cm TUBE OUTPUT-----\n";
+	        		message += "A 17cm tube should allow a sound similar to a schwa!\n";
+	        		try {
+						message += TRM.createTest17cmWave();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						message += e.toString() + "\n";
+					}
+	        		try {
+	    			    Clip clip = AudioSystem.getClip();
+	    			    AudioInputStream ais = AudioSystem.getAudioInputStream(
+	    			    		new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav").getAbsoluteFile()
+	    			    		);
+	    			    clip.open(ais);
+	    			    clip.start();
+	    			    long fileLength = clip.getMicrosecondLength();
+	    			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
+	    			    {
+	    			    }
+	    			  }
+	    			  catch (UnsupportedAudioFileException e) {
+	    				message += "Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    			  }
+	    			  catch (LineUnavailableException e) {
+	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    			  }
+	    			  catch (IOException e) {
+	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    				e.printStackTrace();
+	    			  }
+	        		message += "Did the sound that just played sound like a schwa? If not, something isn't working...\n";
 	        		console.setText(message);
 	        		
 	        	} else {
@@ -286,6 +322,7 @@ public class GUI extends Application {
 		
 		pronounceGrid.add(insertIPA, 0, 1);
 		pronounceGrid.add(synthType, 1, 1);
+		pronounceGrid.add(fileName, 1, 2);
 		pronounceGrid.add(insert, 0, 2);
 		pronounceGrid.add(pronounceButton, 0, 3);
 		

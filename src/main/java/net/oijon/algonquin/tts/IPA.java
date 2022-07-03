@@ -1,11 +1,16 @@
 package net.oijon.algonquin.tts;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.SequenceInputStream;
+import java.net.URL;
 import java.util.Arrays;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -115,42 +120,56 @@ public class IPA
         }
 		return fileNames;
 	}
-	public static String createAudio(String[] fileNames) {
-		String exception = "Successfully played " + Arrays.toString(fileNames);
+	public static String createAudio(String[] fileNames, String name){
+		
+		String exception = "Successfully played " + Arrays.toString(fileNames) + "\n";
 		long fileLength = 0;
-		for (int i = 0; i < fileNames.length; i++) {
-			try {
-			    Clip clip = AudioSystem.getClip();
-			    InputStream is = IPA.class.getResourceAsStream("/classic/" + fileNames[i] + ".wav");
+		
+		AudioInputStream allStreams[] = new AudioInputStream[fileNames.length];
+		try {
+			for (int i = 0; i < fileNames.length; i++) {
+				System.out.println(fileNames[i]);
+				InputStream is = IPA.class.getResourceAsStream("/classic/" + fileNames[i] + ".wav");
 			    InputStream bis = new BufferedInputStream(is);
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
-			    clip.open(ais);
-			    clip.start();
-			    fileLength += clip.getMicrosecondLength();
-			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
-			    {
-			    }
-			    is.close();
-			  }
-			  catch (UnsupportedAudioFileException e) {
-				exception = "unsupported audio format: '" + fileNames[i] + "' - " + e.toString() + "\n";
-				exception += "File names: " + Arrays.toString(fileNames) + "\n";
-				return exception;
-			  }
-			  catch (LineUnavailableException e) {
-				exception = "could not play '" + fileNames[i] + "' - " + e.toString() + "\n";
-				exception += "File names: " + Arrays.toString(fileNames) + "\n";
-				return exception;
-			  }
-			  catch (IOException e) {
-				exception = "could not play '" + fileNames[i] + "' - " + e.toString() + "\n";
-				exception += "File names: " + Arrays.toString(fileNames) + "\n";
-				return exception;
-			  }
+				allStreams[i] = ais;
+			}
+			for (int i = 1; i < allStreams.length; i++) {
+				AudioInputStream temp = new AudioInputStream(
+						new SequenceInputStream(allStreams[0], allStreams[i]),
+							allStreams[0].getFormat(),
+							allStreams[0].getFrameLength() + allStreams[1].getFrameLength());
+				allStreams[0] = temp;
+			}
 			
+			if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
+	        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
+	        	exception += "Created directory " + System.getProperty("user.home") + "/AlgonquinTTS\n";
+	        }
+			
+			AudioSystem.write(allStreams[0], AudioFileFormat.Type.WAVE, new File(System.getProperty("user.home") + 
+					"/AlgonquinTTS/" + name + ".wav"));
+			exception += "Created file " + System.getProperty("user.home") + 
+					"/AlgonquinTTS/" + name + ".wav\n";
+			Clip clip = AudioSystem.getClip();
+		    AudioInputStream ais = AudioSystem.getAudioInputStream(
+		    		new File(System.getProperty("user.home") + 
+							"/AlgonquinTTS/" + name + ".wav").getAbsoluteFile()
+		    		);
+		    clip.open(ais);
+		    clip.start();
+		    fileLength += clip.getMicrosecondLength();
+		    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
+		    {
+		    }
+		    ais.close();
+			
+		} catch (Exception e) {
+			exception = e.toString();
+			e.printStackTrace();
 		}
-		double fileLengthInSeconds = (fileLength/(10000L))/100D;
-		exception += "\nFile length: " + fileLengthInSeconds + " seconds, " + fileLength + " microseconds";
+		
+		
 		return exception;
 	}
 	

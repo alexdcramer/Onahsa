@@ -73,12 +73,12 @@ public class TRM {
 		exception += ("outwards elements: " + Arrays.toString(testTube.out())  + "\n");
 		exception += "Full array: "  + "\n";
 		for (int i = 0; i < testTube.getSampleRate(); i++) {
-			exception += testTube.getDelayLine()[i][0] + ", ";
+			exception += testTube.getDelayLine()[0][i] + ", ";
 		}
 		exception += "\n";
 		
 		for (int i = 0; i < testTube.getSampleRate(); i++) {
-			exception += testTube.getDelayLine()[i][1] + ", ";
+			exception += testTube.getDelayLine()[1][i] + ", ";
 		}
 		
 		return exception;
@@ -142,7 +142,72 @@ public class TRM {
 		
 		return exception;
 	}
-	
+	public static String createTest17cmWave() throws IOException {
+		String exception = "";
+		
+		Voicebox voiceBox = new Voicebox(1);
+		Tube tube = new Tube(17);
+		
+		final double sampleRate = 44100.0;
+        final double seconds = 2.0;
+
+        exception += "Sample Rate: " + sampleRate + "\n";
+        exception += "Amplitude: 1\n";
+        exception += "Seconds: " + seconds + "\n";
+        
+        
+        float[] buffer = new float[(int)(seconds * sampleRate)];
+
+        for (int sample = 0; sample < buffer.length; sample++) {
+        	tube.push(voiceBox.frame());
+            buffer[sample] = tube.out()[0];
+        }
+
+        final byte[] byteBuffer = new byte[buffer.length * 2];
+
+        int bufferIndex = 0;
+        for (int i = 0; i < byteBuffer.length; i++) {
+            final int x = (int)(buffer[bufferIndex++] * 32767.0);
+
+            byteBuffer[i++] = (byte)x;
+            byteBuffer[i] = (byte)(x >>> 8);
+        }
+
+        
+        if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
+        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
+        	exception += "Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS" + "\n";
+        }
+        
+        File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav");
+        exception += "Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "\n";
+
+        final boolean bigEndian = false;
+        final boolean signed = true;
+
+        exception += "Big Endian: " + bigEndian + "\n";
+        exception += "Signed: " + signed + "\n";
+        
+        final int bits = 16;
+        final int channels = 1;
+
+        exception += "Bits: " + bits + "\n";
+        exception += "Channels: " + channels + "\n";
+        
+        exception += "Channels: " + channels + "\n";
+        
+        exception += "Array:\n";
+        exception += Arrays.toString(tube.getDelayLine()[0]) + "\n";
+        exception += Arrays.toString(tube.getDelayLine()[1]) + "\n";
+        
+        AudioFormat format = new AudioFormat((float)sampleRate, bits, channels, signed, bigEndian);
+        ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
+        AudioInputStream audioInputStream = new AudioInputStream(bais, format, buffer.length);
+        AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
+        audioInputStream.close();
+		
+		return exception;
+	}
 	public static String createSchwaTubeTest() {
 		String exception = "";
 		
