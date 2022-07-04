@@ -138,7 +138,7 @@ public class IPA
 							for (int k = 0; k < ipaList.length; k++) {
 								if (fileNames[i].charAt(j) == ipaList[k]) {
 									foundValid = true;
-									exception += "Invalid sound " + fileNames[i] + " detected! Reverting to " + fileNames[i].charAt(j) + "\n";
+									exception += "Invalid sound " + fileNames[i] + " detected! This usually means the sound hasn't been added yet. Reverting to " + fileNames[i].charAt(j) + "\n";
 									fileNames[i] = Character.toString(fileNames[i].charAt(j));
 								}
 							}
