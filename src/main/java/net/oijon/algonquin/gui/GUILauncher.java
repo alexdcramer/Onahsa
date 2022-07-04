@@ -33,10 +33,11 @@ public class GUILauncher {
         }
 		//Copies resources over
 		URI uri = GUILauncher.class.getResource("/classic").toURI();
-        Path myPath;
+        Path myPath = null;
+        FileSystem fileSystem = null;
         if (uri.getScheme().equals("jar")) {
-            FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-            myPath = fileSystem.getPath("/classic");
+	        fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+	        myPath = fileSystem.getPath("/classic");
         } else {
             myPath = Paths.get(uri);
         }
@@ -54,14 +55,16 @@ public class GUILauncher {
 	        }
         }
         walk.close();
+        fileSystem.close();
         
         
 
         URI uri2 = GUILauncher.class.getResource("/newclassic").toURI();
-        Path myPath2;
+        Path myPath2 = null;
+        FileSystem fileSystem2 = null;
         if (uri2.getScheme().equals("jar")) {
-            FileSystem fileSystem = FileSystems.newFileSystem(uri2, Collections.<String, Object>emptyMap());
-            myPath2 = fileSystem.getPath("/newclassic");
+	        fileSystem2 = FileSystems.newFileSystem(uri2, Collections.<String, Object>emptyMap());
+	        myPath2 = fileSystem2.getPath("/newclassic");
         } else {
             myPath2 = Paths.get(uri2);
         }
@@ -79,6 +82,7 @@ public class GUILauncher {
 	        }
         }
         walk2.close();
+        fileSystem2.close();
 		
 		try {
 			TRM.makeTestSound();
