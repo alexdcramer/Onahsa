@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.SequenceInputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -125,12 +126,28 @@ public class IPA
 		
 		String exception = "";
 		long fileLength = 0;
-		URL packURL = IPA.class.getResource("/" + packName);
+		try {
+			URL packURL = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName).toURI().toURL();
+		} catch (MalformedURLException e1) {
+			URL packURL = IPA.class.getResource("/" + packName);
+			exception += "packURL is malformed! Getting resources from jar instead...";
+			exception += e1.toString();
+			e1.printStackTrace();
+		}
 		AudioInputStream allStreams[] = new AudioInputStream[fileNames.length];
 		try {
 			for (int i = 0; i < fileNames.length; i++) {
-				URL url = IPA.class.getResource("/" + packName + "/" + fileNames[i] + ".wav");
-				if (url == null) {
+				URL url;
+				File clipFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + fileNames[i] + ".wav");
+				try {
+					url = clipFile.toURI().toURL();
+				} catch (MalformedURLException e1) {
+					url = IPA.class.getResource("/" + packName + "/" + fileNames[i] + ".wav");
+					exception += "url is malformed! Getting resources from jar instead...";
+					exception += e1.toString();
+					e1.printStackTrace();
+				}
+				if (clipFile.exists() == false) {
 					if (fileNames[i] != null) {
 						boolean foundValid = false;
 						for (int j = 0; j < fileNames[i].length(); j++) {
@@ -152,10 +169,8 @@ public class IPA
 					}
 					
 				}
-				
-				InputStream is = IPA.class.getResourceAsStream("/" + packName + "/" + fileNames[i] + ".wav");
-			    InputStream bis = new BufferedInputStream(is);
-			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
+				AudioInputStream ais = AudioSystem.getAudioInputStream(new File(
+						System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + fileNames[i] + ".wav").getAbsoluteFile());
 				allStreams[i] = ais;
 			}
 			for (int i = 1; i < allStreams.length; i++) {
@@ -165,12 +180,7 @@ public class IPA
 							allStreams[0].getFrameLength() + allStreams[1].getFrameLength());
 				allStreams[0] = temp;
 			}
-			
-			if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
-	        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-	        	exception += "Created directory " + System.getProperty("user.home") + "/AlgonquinTTS\n";
-	        }
-			
+				
 			AudioSystem.write(allStreams[0], AudioFileFormat.Type.WAVE, new File(System.getProperty("user.home") + 
 					"/AlgonquinTTS/" + name + ".wav"));
 			exception += "Created file " + System.getProperty("user.home") + 
