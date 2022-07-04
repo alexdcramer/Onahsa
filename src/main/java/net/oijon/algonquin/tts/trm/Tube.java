@@ -5,7 +5,7 @@ public class Tube {
 	private int length;
 	private int sampleRate;
 	private final int speedOfSound = 34300; //in cm/s
-	private double loss = 1; //no loss
+	private double loss = 0.9995; //very small amount of loss
 	private float[][] delayLine;
 	
 	public Tube (int length) {

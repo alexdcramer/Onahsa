@@ -121,16 +121,15 @@ public class IPA
         }
 		return fileNames;
 	}
-	public static String createAudio(String[] fileNames, String name){
+	public static String createAudio(String[] fileNames, String name, String packName){
 		
 		String exception = "";
 		long fileLength = 0;
-		
+		URL packURL = IPA.class.getResource("/" + packName);
 		AudioInputStream allStreams[] = new AudioInputStream[fileNames.length];
 		try {
 			for (int i = 0; i < fileNames.length; i++) {
-				System.out.println(fileNames[i]);
-				URL url = IPA.class.getResource("/classic/" + fileNames[i] + ".wav");
+				URL url = IPA.class.getResource("/" + packName + "/" + fileNames[i] + ".wav");
 				if (url == null) {
 					if (fileNames[i] != null) {
 						boolean foundValid = false;
@@ -154,7 +153,7 @@ public class IPA
 					
 				}
 				
-				InputStream is = IPA.class.getResourceAsStream("/classic/" + fileNames[i] + ".wav");
+				InputStream is = IPA.class.getResourceAsStream("/" + packName + "/" + fileNames[i] + ".wav");
 			    InputStream bis = new BufferedInputStream(is);
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
 				allStreams[i] = ais;

@@ -63,6 +63,39 @@ public class GUI extends Application {
 		Label fileNameLabel = new Label("File Name");
 		TextField fileNameField = new TextField("output");
 		VBox fileName = new VBox(fileNameLabel, fileNameField);
+		Label packLabel = new Label("Sound Pack");
+		
+		String[] packnames;
+		String packList = "Packs:\n";
+		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
+		packnames = packsDirFile.list();
+		
+		for (String pathname : packnames) {
+            packList += pathname + "\n";
+        }
+		
+		TextArea packListTextArea = new TextArea(packList);
+		TextField packField = new TextField("newclassic");
+		Button refreshPacksButton = new Button("Refresh");
+		refreshPacksButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				String[] packnames;
+				String packList = "Packs:\n";
+				File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
+				packnames = packsDirFile.list();
+				
+				for (String pathname : packnames) {
+		            packList += pathname + "\n";
+		        }
+				
+				packListTextArea.setText(packList);
+			}
+			
+		});
+		VBox packVBox = new VBox(packLabel, packListTextArea, packField, refreshPacksButton);
+		
 		Button pronounceButton = new Button("Pronounce!");
 		pronounceButton.setDefaultButton(true);
 		
@@ -71,7 +104,9 @@ public class GUI extends Application {
 	        @Override
 	        public void handle(ActionEvent event) {
 	        	if (synthType.getValue().equals("Classic")) {
-	        		console.setText(IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText()));
+	        		String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), packField.getText());
+	        		console.setText(message);
+	        		System.out.println(message);
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		
 	        		//String consoleResult = "Generated from a value of 1: " + Float.toString(tube.generate(1)) + "\n";
@@ -151,6 +186,7 @@ public class GUI extends Application {
 	    			  }
 	        		message += "Did the sound that just played sound like a schwa? If not, something isn't working...\n";
 	        		console.setText(message);
+	        		System.out.print(message);
 	        		
 	        	} else {
 	        		console.setText("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
@@ -315,11 +351,11 @@ public class GUI extends Application {
 		ipaChart.add(glottal, 11, 0);
 		**/
 		
-		pronounceGrid.add(insertIPA, 0, 1);
-		pronounceGrid.add(synthType, 1, 1);
-		pronounceGrid.add(fileName, 1, 2);
-		pronounceGrid.add(insert, 0, 2);
-		pronounceGrid.add(pronounceButton, 0, 3);
+		VBox leftSide = new VBox(insertIPA, insert, pronounceButton);
+		VBox rightSide = new VBox(synthType, fileName, packVBox);
+		
+		pronounceGrid.add(leftSide, 0, 1);
+		pronounceGrid.add(rightSide, 1, 1);
 		
 		pronounceBox.getChildren().addAll(pronounceGrid);
 		
