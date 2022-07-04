@@ -1,11 +1,7 @@
 package net.oijon.algonquin.gui;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -31,7 +27,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
-import net.oijon.algonquin.tts.trm.Tube;
 
 
 public class GUI extends Application {
