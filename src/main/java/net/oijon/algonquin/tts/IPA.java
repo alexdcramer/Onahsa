@@ -19,14 +19,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class IPA 
 {
+	static char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
+	static char[] preDiacriticList = {'ᵐ', 'ⁿ', 'ᶯ', 'ᶮ', 'ᵑ'};
+	static char[] postDiacriticList = {'̥', '̊', '̬', 'ʰ', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻','̃', 'ˡ', '̚', '-'};
+	
 	public static String[] getFileNames(String input) {
 		//i dont like how this is hard-coded in, extIPA exists....
 		//TODO: find a way to get this read in from a file
 		
 		//g and ɡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
-		char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
-    	char[] preDiacriticList = {'ᵐ', 'ⁿ', 'ᶯ', 'ᶮ', 'ᵑ'};
-		char[] postDiacriticList = {'̥', '̊', '̬', 'ʰ', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻','̃', 'ˡ', '̚', '-'};
     	String[] fileNames = new String[input.length()];
         
    
@@ -122,13 +123,37 @@ public class IPA
 	}
 	public static String createAudio(String[] fileNames, String name){
 		
-		String exception = "Successfully played " + Arrays.toString(fileNames) + "\n";
+		String exception = "";
 		long fileLength = 0;
 		
 		AudioInputStream allStreams[] = new AudioInputStream[fileNames.length];
 		try {
 			for (int i = 0; i < fileNames.length; i++) {
 				System.out.println(fileNames[i]);
+				URL url = IPA.class.getResource("/classic/" + fileNames[i] + ".wav");
+				if (url == null) {
+					if (fileNames[i] != null) {
+						boolean foundValid = false;
+						for (int j = 0; j < fileNames[i].length(); j++) {
+							for (int k = 0; k < ipaList.length; k++) {
+								if (fileNames[i].charAt(j) == ipaList[k]) {
+									foundValid = true;
+									exception += "Invalid sound " + fileNames[i] + " detected! Reverting to " + fileNames[i].charAt(j) + "\n";
+									fileNames[i] = Character.toString(fileNames[i].charAt(j));
+								}
+							}
+						}
+						if (foundValid == false) {
+							exception += "Invalid sound " + fileNames[i] + " detected! No valid replacement found, skipping...\n";
+							fileNames[i] = "space";
+						}
+					}
+					else {
+						fileNames[i] = "space";
+					}
+					
+				}
+				
 				InputStream is = IPA.class.getResourceAsStream("/classic/" + fileNames[i] + ".wav");
 			    InputStream bis = new BufferedInputStream(is);
 			    AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
@@ -163,6 +188,7 @@ public class IPA
 		    {
 		    }
 		    ais.close();
+		    exception += "Successfully played " + Arrays.toString(fileNames) + "\n";
 			
 		} catch (Exception e) {
 			exception = e.toString();

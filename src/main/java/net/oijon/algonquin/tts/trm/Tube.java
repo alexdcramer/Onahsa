@@ -21,14 +21,14 @@ public class Tube {
 		System.out.println("pushamount: " + pushAmount);
 		float[][] newDelayLine = new float[2][delayLine[0].length];
 		delayLine[0][0] = pushAmount;
-		for (int i = 1; i < delayLine[0].length-1; i++) {
+		for (int i = 1; i < delayLine[0].length; i++) {
 			newDelayLine[0][i] = delayLine[0][i-1]*(float)loss;
 			//System.out.println(newDelayLine[0][i]); //debug
 		}
 		
 		newDelayLine[1][0] = delayLine[0][delayLine[0].length-1];
 		
-		for (int i = 1; i < delayLine[1].length-1; i++) {
+		for (int i = 1; i < delayLine[1].length; i++) {
 			newDelayLine[1][i] = delayLine[1][i-1]*(float)loss;
 			//System.out.println(newDelayLine[1][i]); //debug
 		}
