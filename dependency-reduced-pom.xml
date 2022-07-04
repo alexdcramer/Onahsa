@@ -4,7 +4,7 @@
   <groupId>net.oijon</groupId>
   <artifactId>algonquin</artifactId>
   <name>algonquin</name>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
   <url>http://github.com/N3ther/Algonquin-TTS</url>
   <developers>
