@@ -111,90 +111,100 @@ public class GUI extends Application {
 	        @Override
 	        public void handle(ActionEvent event) {
 	        	if (synthType.getValue().equals("Classic")) {
-	        		String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), packField.getText());
-	        		console.setText(message);
-	        		System.out.println(message);
+	        		Thread t1 = new Thread(new Runnable() {
+	        		    @Override
+	        		    public void run() {
+	        		    	String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), packField.getText());
+	    	        		console.setText(message);
+	    	        		System.out.println(message);
+	        		    }
+	        		});  
+	        		t1.start();
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
-	        		
-	        		//String consoleResult = "Generated from a value of 1: " + Float.toString(tube.generate(1)) + "\n";
-	        		//consoleResult += "Generated from a value of 2: " + Float.toString(tube.generate(2)) + "\n";
-	        		//consoleResult += "Generated from a value of 1.5: " + Float.toString(tube.generate((float) 1.5)) + "\n";
-	        		//consoleResult += "Generated from a value of 10: " + Float.toString(tube.generate(10)) + "\n";
-	        		//consoleResult += "Generated from a value of 30: " + Float.toString(tube.generate(30)) + "\n";
-	        		String message = "This is currently under development and is highly experimental!\n";
-	        		message += "However, below you will find debug information to help more easially develop this!\n";
-	        		message += "-----BEGIN TESTTUBE-----\n";
-	        		message += TRM.createTestTube() + "\n";
-	        		message += "-----END TESTTUBE-----\n";
-	        		message += "-----BEGIN RAW OUTPUT-----\n";
-	        		message += "Now, a .wav file will be created of a pure vocal output. This should be just a sine wave.\n";
-	        		try {
-						message += TRM.createTestWave();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						message += e.toString() + "\n";
-					}
-	        		message += "Now it will play!\n";
-	        		try {
-	    			    Clip clip = AudioSystem.getClip();
-	    			    AudioInputStream ais = AudioSystem.getAudioInputStream(
-	    			    		new File(System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav").getAbsoluteFile()
-	    			    		);
-	    			    clip.open(ais);
-	    			    clip.start();
-	    			    long fileLength = clip.getMicrosecondLength();
-	    			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
-	    			    {
-	    			    }
-	    			  }
-	    			  catch (UnsupportedAudioFileException e) {
-	    				message += "Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
-	    			  }
-	    			  catch (LineUnavailableException e) {
-	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
-	    			  }
-	    			  catch (IOException e) {
-	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
-	    				e.printStackTrace();
-	    			  }
-	        		message += "If all went to plan, and you did not see any exceptions, you just heard the beep that will form the voicebox's raw output!\n";
-	        		message += "Of course, this won't be what the end product sounds like, the end product will have to go through several tubes.\n";
-	        		message += "These tubes represent parts of the mouth and nasal cavity, which should be able to approximate the sound of speaking!\n";
-	        		message += "-----END RAW OUTPUT-----\n";
-	        		message += "-----BEGIN 17cm TUBE OUTPUT-----\n";
-	        		message += "A 17cm tube should allow a sound similar to a schwa!\n";
-	        		try {
-						message += TRM.createTest17cmWave();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						message += e.toString() + "\n";
-					}
-	        		try {
-	    			    Clip clip = AudioSystem.getClip();
-	    			    AudioInputStream ais = AudioSystem.getAudioInputStream(
-	    			    		new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav").getAbsoluteFile()
-	    			    		);
-	    			    clip.open(ais);
-	    			    clip.start();
-	    			    long fileLength = clip.getMicrosecondLength();
-	    			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
-	    			    {
-	    			    }
-	    			  }
-	    			  catch (UnsupportedAudioFileException e) {
-	    				message += "Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
-	    			  }
-	    			  catch (LineUnavailableException e) {
-	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
-	    			  }
-	    			  catch (IOException e) {
-	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
-	    				e.printStackTrace();
-	    			  }
-	        		message += "Did the sound that just played sound like a schwa? If not, something isn't working...\n";
-	        		console.setText(message);
-	        		System.out.print(message);
-	        		
+	        		Thread t1 = new Thread(new Runnable() {
+	        		    @Override
+	        		    public void run() {
+	        		    	//String consoleResult = "Generated from a value of 1: " + Float.toString(tube.generate(1)) + "\n";
+	    	        		//consoleResult += "Generated from a value of 2: " + Float.toString(tube.generate(2)) + "\n";
+	    	        		//consoleResult += "Generated from a value of 1.5: " + Float.toString(tube.generate((float) 1.5)) + "\n";
+	    	        		//consoleResult += "Generated from a value of 10: " + Float.toString(tube.generate(10)) + "\n";
+	    	        		//consoleResult += "Generated from a value of 30: " + Float.toString(tube.generate(30)) + "\n";
+	    	        		String message = "This is currently under development and is highly experimental!\n";
+	    	        		message += "However, below you will find debug information to help more easially develop this!\n";
+	    	        		message += "-----BEGIN TESTTUBE-----\n";
+	    	        		message += TRM.createTestTube() + "\n";
+	    	        		message += "-----END TESTTUBE-----\n";
+	    	        		message += "-----BEGIN RAW OUTPUT-----\n";
+	    	        		message += "Now, a .wav file will be created of a pure vocal output. This should be just a sine wave.\n";
+	    	        		try {
+	    						message += TRM.createTestWave();
+	    					} catch (IOException e) {
+	    						// TODO Auto-generated catch block
+	    						message += e.toString() + "\n";
+	    					}
+	    	        		message += "Now it will play!\n";
+	    	        		try {
+	    	    			    Clip clip = AudioSystem.getClip();
+	    	    			    AudioInputStream ais = AudioSystem.getAudioInputStream(
+	    	    			    		new File(System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav").getAbsoluteFile()
+	    	    			    		);
+	    	    			    clip.open(ais);
+	    	    			    clip.start();
+	    	    			    long fileLength = clip.getMicrosecondLength();
+	    	    			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
+	    	    			    {
+	    	    			    }
+	    	    			  }
+	    	    			  catch (UnsupportedAudioFileException e) {
+	    	    				message += "Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
+	    	    			  }
+	    	    			  catch (LineUnavailableException e) {
+	    	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
+	    	    			  }
+	    	    			  catch (IOException e) {
+	    	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString() + "\n";
+	    	    				e.printStackTrace();
+	    	    			  }
+	    	        		message += "If all went to plan, and you did not see any exceptions, you just heard the beep that will form the voicebox's raw output!\n";
+	    	        		message += "Of course, this won't be what the end product sounds like, the end product will have to go through several tubes.\n";
+	    	        		message += "These tubes represent parts of the mouth and nasal cavity, which should be able to approximate the sound of speaking!\n";
+	    	        		message += "-----END RAW OUTPUT-----\n";
+	    	        		message += "-----BEGIN 17cm TUBE OUTPUT-----\n";
+	    	        		message += "A 17cm tube should allow a sound similar to a schwa!\n";
+	    	        		try {
+	    						message += TRM.createTest17cmWave();
+	    					} catch (IOException e) {
+	    						// TODO Auto-generated catch block
+	    						message += e.toString() + "\n";
+	    					}
+	    	        		try {
+	    	    			    Clip clip = AudioSystem.getClip();
+	    	    			    AudioInputStream ais = AudioSystem.getAudioInputStream(
+	    	    			    		new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav").getAbsoluteFile()
+	    	    			    		);
+	    	    			    clip.open(ais);
+	    	    			    clip.start();
+	    	    			    long fileLength = clip.getMicrosecondLength();
+	    	    			    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
+	    	    			    {
+	    	    			    }
+	    	    			  }
+	    	    			  catch (UnsupportedAudioFileException e) {
+	    	    				message += "Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    	    			  }
+	    	    			  catch (LineUnavailableException e) {
+	    	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    	    			  }
+	    	    			  catch (IOException e) {
+	    	    				message += "Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString() + "\n";
+	    	    				e.printStackTrace();
+	    	    			  }
+	    	        		message += "Did the sound that just played sound like a schwa? If not, something isn't working...\n";
+	    	        		console.setText(message);
+	    	        		System.out.print(message);
+	        		    }
+	        		});  
+	        		t1.start();	        		
 	        	} else {
 	        		console.setText("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
 	        	}
