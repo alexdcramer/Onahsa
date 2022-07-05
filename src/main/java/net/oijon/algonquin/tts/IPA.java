@@ -26,7 +26,7 @@ public class IPA
 {
 	static char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
 	static char[] preDiacriticList = {'ᵐ', 'ⁿ', 'ᶯ', 'ᶮ', 'ᵑ'};
-	static char[] postDiacriticList = {'̥', '̊', '̬', 'ʰ', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻','̃', 'ˡ', '̚', '-'};
+	static char[] postDiacriticList = {'̥', 'ː', '̊', '̬', 'ʰ', '̹', '̜', '̟', '̠', '̈', '̽', '̩', '̯', '˞', '̤', '̰', '̼', 'ʷ', 'ʲ', 'ˠ', 'ˤ', '̴', '̝', '̞', '̘', '̙', '̪', '̺', '̻','̃', 'ˡ', '̚', '-'};
 	/** 
 	 * Creates a String array of all characters inputted, adding diacritics to their respective sound.
 	 * @param input The raw IPA input
@@ -56,24 +56,7 @@ public class IPA
         	}
         	
         	
-        	
         	for (int j = 0; j < postDiacriticList.length; j++) {
-        		if (c == postDiacriticList[j]) {
-        			isPostDiacritic = true;
-        			//shouldnt actually be a problem, but just in case...]
-        			if (currentFileName != 0) {
-            			//if diacritic, add to file name of previous char.
-        				currentFileName--;
-        				fileNames[currentFileName] += Character.toString(c);
-        				currentFileName++;
-        			} else {
-        				System.err.println("Postdiacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
-        			}
-        			
-        		}
-        	}
-        	
-        	for (int j = 0; j < preDiacriticList.length; j++) {
         		if (c == postDiacriticList[j]) {
         			isPostDiacritic = true;
         			//shouldnt actually be a problem, but just in case...]
