@@ -29,8 +29,15 @@ import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
 
 
+/**
+ * @author N3ther
+ *
+ */
 public class GUI extends Application {
 
+	/**
+	 * Creates all GUI elements. Might throw exceptions when handling TRM.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//pre-startup
@@ -193,7 +200,7 @@ public class GUI extends Application {
 	        	}
 	        }
 	    });
-		/**
+		
 		GridPane ipaChart = new GridPane();
 		ipaChart.setAlignment(Pos.CENTER);
 		ipaChart.setHgap(5);
@@ -349,12 +356,13 @@ public class GUI extends Application {
 		ipaChart.add(pharyngeal, 10, 0);
 		Label glottal = new Label("Glottal");
 		ipaChart.add(glottal, 11, 0);
-		**/
+		
 		
 		VBox leftSide = new VBox(insertIPA, insert, pronounceButton);
 		VBox rightSide = new VBox(synthType, fileName, packVBox);
 		
 		pronounceGrid.add(leftSide, 0, 1);
+		//pronounceGrid.add(ipaChart, 0, 2);
 		pronounceGrid.add(rightSide, 1, 1);
 		
 		pronounceBox.getChildren().addAll(pronounceGrid);

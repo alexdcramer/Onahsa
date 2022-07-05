@@ -10,9 +10,16 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-// Highly experimental.
+/**
+ * @author N3ther
+ * Highly experimental.
+ */
 public class TRM {
 
+	/**
+	 * Creates and plays a test sound. Will be removed in the future.
+	 * @throws IOException Thrown when it can't create the output file for whatever reason.
+	 */
 	public static void makeTestSound() throws IOException {
 		final double sampleRate = 44100.0;
         final double frequency = 440;
@@ -59,6 +66,10 @@ public class TRM {
         audioInputStream.close();
 	}
 	
+	/**
+	 * Creates a tube (See net.oijon.algonquin.tts.trm.Tube) that is 17cm long. Will be removed in the future.
+	 * @return Any debug information generated.
+	 */
 	public static String createTestTube() {
 		String exception = "";
 		Tube testTube = new Tube(17);
@@ -84,6 +95,11 @@ public class TRM {
 		return exception;
 	}
 	
+	/**
+	 * Creates a test wave from a raw Voicebox instance (see net.oijon.algonqion.tts.trm.Voicebox). Will be renamed in the future.
+	 * @return Any debug information generated.
+	 * @throws IOException Thrown when it can't create the output file for whatever reason.
+	 */
 	public static String createTestWave() throws IOException {
 		String exception = "";
 		
@@ -142,6 +158,12 @@ public class TRM {
 		
 		return exception;
 	}
+	/**
+	 * Puts a Voicebox through a 17cm tube. Currently not working as expected.
+	 * Will be removed in the future.
+	 * @return Any debug information generated.
+	 * @throws IOException Thrown when it can't create the output file for whatever reason.
+	 */
 	public static String createTest17cmWave() throws IOException {
 		String exception = "";
 		
@@ -208,6 +230,12 @@ public class TRM {
 		
 		return exception;
 	}
+	/**
+	 * Do not use.
+	 * 
+	 * Unfinished, worse version of create17cmWave.
+	 * @return Currently blank.
+	 */
 	public static String createSchwaTubeTest() {
 		String exception = "";
 		

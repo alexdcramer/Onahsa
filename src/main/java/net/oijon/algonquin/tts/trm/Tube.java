@@ -1,5 +1,9 @@
 package net.oijon.algonquin.tts.trm;
 
+/**
+ * @author N3ther
+ *
+ */
 public class Tube {
 
 	private int length;
@@ -8,6 +12,10 @@ public class Tube {
 	private double loss = 0.9995; //very small amount of loss
 	private float[][] delayLine;
 	
+	/**
+	 * Creates a tube based on it's length.
+	 * @param length The length of the tube in cm.
+	 */
 	public Tube (int length) {
 		this.length = length;
 		// L = c/F, where L is the length (17cm), c is the speed of sound (cm/s), and F is the sampling frequency
@@ -16,7 +24,9 @@ public class Tube {
 		delayLine = new float[2][sampleRate];
 	}
 	
-	//create and manage a delay line
+	/** Creates and manages a delay line. Needs work.
+	 * @param pushAmount The input being added to the delay line.
+	 */
 	public void push(float pushAmount) {
 		System.out.println("pushamount: " + pushAmount);
 		float[][] newDelayLine = new float[2][delayLine[0].length];
@@ -44,9 +54,12 @@ public class Tube {
 		delayLine = newDelayLine;
 	}
 	
-	//convert to 44.1 kHz by adding new data to follow the slope.
-	//i could very well be misunderstanding something about this in the paper by Manzara
-	//if so, this method will probably be replaced.
+	/**
+	 * Converts to 44.1 kHz by adding new data to follow the slope. Needs work.
+	 * I could very well be misunderstanding something about this in the paper by Manzara.
+	 * If so, this method will probably be replaced.
+	 * @return The standardized delay line, can be turned into a .wav file.
+	 */
 	public float[][] standardize() {
 		float[][] standard = new float[44100][2];
 		int multiple = (int)(44100/sampleRate);
@@ -72,6 +85,10 @@ public class Tube {
 		return standard;
 	}
 	
+	/**
+	 * Gets the current output of the delay line.
+	 * @return
+	 */
 	public float[] out() {
 		float[] out = new float[2];
 		out[0] = delayLine[0][sampleRate-1];
@@ -79,19 +96,39 @@ public class Tube {
 		return out;
 	}
 	
-	//debug only, should not be used in production
+	/**
+	 * Debug only, should not be used in production.
+	 * Returns the full array.
+	 * @return The delay line.
+	 */
 	public float[][] getDelayLine() {
 		return delayLine;
 	}
+	/**
+	 * Gets the length of the tube.
+	 * @return The tube length in cm.
+	 */
 	public int getLength() {
 		return length;
 	}
+	/**
+	 * Gets the sample rate the delay line is operating at.
+	 * @return The sample rate in Hz
+	 */
 	public int getSampleRate() {
 		return sampleRate;
 	}
+	/**
+	 * Gets the current loss factor. 1 == no loss, 0 == 100% loss per sample.
+	 * @return The loss factor.
+	 */
 	public double getLoss() {
 		return loss;
 	}
+	/**
+	 * Sets the loss factor. Debug only.
+	 * @param loss The loss factor. 1 == no loss, 0 == 100% loss per sample.
+	 */
 	public void setLoss(double loss) {
 		this.loss = loss;
 	}

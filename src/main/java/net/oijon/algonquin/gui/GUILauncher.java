@@ -10,8 +10,21 @@ import java.util.stream.*;
 
 import net.oijon.algonquin.tts.trm.TRM;
 
+/**
+ * @author N3ther
+ *
+ */
 public class GUILauncher {
 
+	
+	
+	/**
+	 * Launches the GUI, as JavaFX cannot handle the GUI being launched directly.
+	 * Also creates default files (packs classic and newclassic).
+	 * @param args Passed on to GUI to run.
+	 * @throws URISyntaxException Should never be thrown, however the compiler yelled at me if I didn't include this.
+	 * @throws IOException Thrown if for some reason it cannot create directories. Should never be thrown.
+	 */
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		//Create AlgonquinTTS directory
 		//Uses a lot of ifs, but should be ok...
@@ -55,7 +68,9 @@ public class GUILauncher {
 	        }
         }
         walk.close();
-        fileSystem.close();
+        if (fileSystem != null) {
+        	fileSystem.close();
+        }
         
         
 
@@ -82,7 +97,9 @@ public class GUILauncher {
 	        }
         }
         walk2.close();
-        fileSystem2.close();
+        if (fileSystem2 != null) {
+        	fileSystem2.close();
+        }
 		
 		try {
 			TRM.makeTestSound();
