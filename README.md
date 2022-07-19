@@ -1,4 +1,4 @@
-# Algonquin-TTS ![Algonquin logo](https://github.com/N3ther/Algonquin-TTS/raw/main/logo.png)
+# ![Algonquin logo](https://github.com/N3ther/Algonquin-TTS/raw/main/logo.png) Algonquin-TTS
 An IPA text-to-speech that is independant of language.
 
 # Frequent bugs:
