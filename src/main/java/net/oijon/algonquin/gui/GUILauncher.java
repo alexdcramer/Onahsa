@@ -16,7 +16,7 @@ import net.oijon.algonquin.tts.trm.TRM;
  */
 public class GUILauncher {
 
-	private static void copyFiles() throws URISyntaxException, IOException  {
+	public static void copyFiles() throws URISyntaxException, IOException  {
 		//Create AlgonquinTTS directory
 				//Uses a lot of ifs, but should be ok...
 				if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
