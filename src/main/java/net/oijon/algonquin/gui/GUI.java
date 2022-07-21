@@ -22,6 +22,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,6 +61,10 @@ public class GUI extends Application {
 		final ComboBox synthType = new ComboBox(options);
 		synthType.setValue("Classic");
 		
+		Background speakers = new Background(new BackgroundImage(new Image(GUI.class.getResourceAsStream("/img/speaker.png")),
+				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+    	        BackgroundSize.DEFAULT));
+		
 		HBox pronounceBox = new HBox();
 		pronounceBox.setAlignment(Pos.CENTER);
 		GridPane pronounceGrid = new GridPane();
@@ -62,16 +73,29 @@ public class GUI extends Application {
 		pronounceGrid.setVgap(10);
 		pronounceGrid.setPadding(new Insets(25, 25, 25, 25));
 		
-		Label consoleLabel = new Label("Console");
+		Button consoleLabel = new Button();
+		consoleLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/console.png"))));
+		consoleLabel.setBackground(null);
+		consoleLabel.setPadding(new Insets(5, 0, -5, 0));
 		TextArea console = new TextArea();
+		console.setPadding(Insets.EMPTY);
 		
-		Label insertIPA = new Label("Insert IPA:");
+		Button insertIPA = new Button();
+		insertIPA.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/insert-ipa.png"))));
+		insertIPA.setBackground(null);
+		insertIPA.setPadding(new Insets(5, 0, 0, 0));
 		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu ælgonkwɪn tɛkst tu spitʃ");
 		
-		Label fileNameLabel = new Label("File Name");
+		Button fileNameLabel = new Button();
+		fileNameLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/file-name.png"))));
+		fileNameLabel.setBackground(null);
+		fileNameLabel.setPadding(new Insets(5, 0, 0, 0));
 		TextField fileNameField = new TextField("output");
 		VBox fileName = new VBox(fileNameLabel, fileNameField);
-		Label packLabel = new Label("Sound Pack");
+		Button packLabel = new Button();
+		packLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/sound-pack.png"))));
+		packLabel.setBackground(null);
+		packLabel.setPadding(new Insets(5, 0, 0, 0));
 		
 		String[] packnames;
 		String packList = "Packs:\n";
@@ -85,6 +109,7 @@ public class GUI extends Application {
 		TextArea packListTextArea = new TextArea(packList);
 		TextField packField = new TextField("newclassic");
 		Button refreshPacksButton = new Button("Refresh");
+		refreshPacksButton.setPadding(new Insets(5, 10, 5, 10));
 		refreshPacksButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -379,7 +404,7 @@ public class GUI extends Application {
 		pronounceBox.getChildren().addAll(pronounceGrid);
 		
 		
-		
+		mainBox.setBackground(speakers);
 		mainBox.getChildren().addAll(pronounceBox, consoleLabel, console);
 		
 		Scene scene = new Scene(mainBox, 750, 500);
