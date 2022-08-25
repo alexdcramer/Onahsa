@@ -33,7 +33,6 @@ public class IPA
 	 * @return A string array with each file's name
 	 */
 	public static String[] getFileNames(String input) {
-		//i dont like how this is hard-coded in, extIPA exists....
 		//TODO: find a way to get this read in from a file
 		
 		//g and ɡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
@@ -63,7 +62,7 @@ public class IPA
         			if (currentFileName != 0) {
             			//if diacritic, add to file name of previous char.
         				currentFileName--;
-        				fileNames[currentFileName] += Character.toString(c);
+        				fileNames[currentFileName] += String.format("%04x", (int)c);;
         				currentFileName++;
         			} else {
         				System.err.println("Postdiacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
