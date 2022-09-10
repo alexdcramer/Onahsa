@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
 	<artifactId>algonquin</artifactId>
-	<version>0.2.3-SNAPSHOT</version>
+	<version>0.3.0</version>
 	<packaging>jar</packaging>
 	<name>algonquin</name>
 	<description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
@@ -139,6 +139,7 @@
 					<mainClass>net.oijon.algonquin.gui.GUI</mainClass>
 				</configuration>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -153,6 +154,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 	<licenses>
