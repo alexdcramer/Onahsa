@@ -128,7 +128,7 @@ public class IPA
 			URL packURL = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName).toURI().toURL();
 		} catch (MalformedURLException e1) {
 			URL packURL = IPA.class.getResource("/" + packName);
-			exception += "packURL is malformed! Getting resources from jar instead...";
+			exception += "packURL is malformed! Attempting to get resources from jar instead...";
 			exception += e1.toString();
 			e1.printStackTrace();
 		}
@@ -141,7 +141,7 @@ public class IPA
 					url = clipFile.toURI().toURL();
 				} catch (MalformedURLException e1) {
 					url = IPA.class.getResource("/" + packName + "/" + fileNames[i] + ".wav");
-					exception += "url is malformed! Getting resources from jar instead...";
+					exception += "url is malformed! Attempting to get resources from jar instead...";
 					exception += e1.toString();
 					e1.printStackTrace();
 				}

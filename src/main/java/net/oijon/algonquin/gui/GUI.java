@@ -1,6 +1,8 @@
 package net.oijon.algonquin.gui;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -19,19 +21,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
@@ -43,21 +48,31 @@ import net.oijon.algonquin.tts.trm.TRM;
  */
 public class GUI extends Application {
 
+	String selectedPack;
+	
 	/**
 	 * Creates all GUI elements. Might throw exceptions when handling TRM.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		//backgrounds
+		BackgroundFill backgroundFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
+		Background white = new Background(backgroundFill);
+		
 		//pre-startup
 		VBox mainBox = new VBox();
 		mainBox.setAlignment(Pos.CENTER);
 		mainBox.setSpacing(5);
+		
+		selectedPack = "newclassic";
 		
 		ObservableList<String> options = 
 		    FXCollections.observableArrayList(
 		        "Classic",
 		        "TRM (highly experimental)"
 		    );
+		@SuppressWarnings("rawtypes")
 		final ComboBox synthType = new ComboBox(options);
 		synthType.setValue("Classic");
 		
@@ -97,37 +112,115 @@ public class GUI extends Application {
 		packLabel.setBackground(null);
 		packLabel.setPadding(new Insets(5, 0, 0, 0));
 		
-		String[] packnames;
-		String packList = "Packs:\n";
+		
 		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
+		String[] packnames = packsDirFile.list();
+		
+		
+		VBox packListVBox = new VBox();
+				
+		packListVBox.setBackground(white);
+		
+		ScrollPane packListScroll = new ScrollPane(packListVBox);
+		packListScroll.setMinHeight(220);
+		
 		packnames = packsDirFile.list();
 		
-		for (String pathname : packnames) {
-            packList += pathname + "\n";
+		packListVBox.getChildren().clear();
+		
+		for (int i = 0; i < packnames.length; i++) {
+            HBox mainPackBox = new HBox();
+
+            Image icon = new Image(GUI.class.getResourceAsStream("/img/no-image.png"));
+        	ImageView iconView = new ImageView(icon);
+            
+        	File iconFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packnames[i] + "/icon.png");
+        	
+        	if (iconFile.exists()) {
+        		try {
+					icon = new Image(new FileInputStream(iconFile));
+					iconView = new ImageView(icon);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        	
+            VBox detailsBox = new VBox();
+            Label name = new Label(packnames[i]);
+            Button button = new Button("Select");
+            button.setPrefHeight(20);
+            button.setPrefWidth(50);
+            
+            final String actionName = packnames[i]; //this is stupid, but the java compiler has forced me to do this
+            button.setOnAction(new EventHandler<ActionEvent>() {
+            	
+				@Override
+				public void handle(ActionEvent event) {
+					selectedPack = actionName;
+				}
+            	
+            });
+            
+            detailsBox.getChildren().addAll(name, button);
+            mainPackBox.getChildren().addAll(iconView, detailsBox);
+            packListVBox.getChildren().add(mainPackBox);
         }
 		
-		TextArea packListTextArea = new TextArea(packList);
-		TextField packField = new TextField("newclassic");
 		Button refreshPacksButton = new Button("Refresh");
 		refreshPacksButton.setPadding(new Insets(5, 10, 5, 10));
 		refreshPacksButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
 				String[] packnames;
-				String packList = "Packs:\n";
 				File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
 				packnames = packsDirFile.list();
 				
-				for (String pathname : packnames) {
-		            packList += pathname + "\n";
+				packListVBox.getChildren().clear();
+				
+				for (int i = 0; i < packnames.length; i++) {
+		            HBox mainBox = new HBox();
+
+		            Image icon = new Image(GUI.class.getResourceAsStream("/img/no-image.png"));
+		        	ImageView iconView = new ImageView(icon);
+		            
+		        	File iconFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packnames[i] + "/icon.png");
+		        	
+		        	if (iconFile.exists()) {
+		        		try {
+							icon = new Image(new FileInputStream(iconFile));
+							iconView = new ImageView(icon);
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		        	}
+		        	
+		            VBox detailsBox = new VBox();
+		            Label name = new Label(packnames[i]);
+		            Button button = new Button("Select");
+		            button.setPrefHeight(20);
+		            button.setPrefWidth(50);
+		            
+		            final String actionName = packnames[i]; //this is stupid, but the java compiler has forced me to do this
+		            button.setOnAction(new EventHandler<ActionEvent>() {
+		            	
+						@Override
+						public void handle(ActionEvent event) {
+							selectedPack = actionName;
+						}
+		            	
+		            });
+		            
+		            detailsBox.getChildren().addAll(name, button);
+		            mainBox.getChildren().addAll(iconView, detailsBox);
+		            packListVBox.getChildren().add(mainBox);
 		        }
 				
-				packListTextArea.setText(packList);
 			}
 			
 		});
-		VBox packVBox = new VBox(packLabel, packListTextArea, packField, refreshPacksButton);
+		VBox packVBox = new VBox(packLabel, packListScroll, refreshPacksButton);
 		
 		Button pronounceButton = new Button("Pronounce!");
 		pronounceButton.setDefaultButton(true);
@@ -140,7 +233,7 @@ public class GUI extends Application {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
 	        		    public void run() {
-	        		    	String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), packField.getText());
+	        		    	String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), selectedPack);
 	    	        		console.setText(message);
 	    	        		System.out.println(message);
 	        		    }
@@ -157,6 +250,7 @@ public class GUI extends Application {
 	    	        		//consoleResult += "Generated from a value of 30: " + Float.toString(tube.generate(30)) + "\n";
 	    	        		String message = "This is currently under development and is highly experimental!\n";
 	    	        		message += "However, below you will find debug information to help more easially develop this!\n";
+	    	        		message += "**NOTICE: In future versions, this will be replaced by Bagpipe**\n";
 	    	        		message += "-----BEGIN TESTTUBE-----\n";
 	    	        		message += TRM.createTestTube() + "\n";
 	    	        		message += "-----END TESTTUBE-----\n";
@@ -407,7 +501,7 @@ public class GUI extends Application {
 		mainBox.setBackground(speakers);
 		mainBox.getChildren().addAll(pronounceBox, consoleLabel, console);
 		
-		Scene scene = new Scene(mainBox, 750, 500);
+		Scene scene = new Scene(mainBox, 750, 600);
 		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/algonquin-logo.png")));
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Algonquin Text-to-Speach");
