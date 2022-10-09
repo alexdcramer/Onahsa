@@ -102,7 +102,7 @@ public class GUILauncher {
 	 */
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		
-		
+		System.out.println(Arrays.toString(args));
 		try {
 			TRM.makeTestSound();
 		} catch (IOException e) {
@@ -110,6 +110,9 @@ public class GUILauncher {
 			e.printStackTrace();
 		}
 		copyFiles();
+		if (Arrays.stream(args).anyMatch("-c"::equals)) {
+			
+		}
         GUI.main(args);
     }
 }

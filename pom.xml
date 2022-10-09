@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
 	<artifactId>algonquin</artifactId>
-	<version>0.3.1</version>
+	<version>0.3.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>algonquin</name>
 	<description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
