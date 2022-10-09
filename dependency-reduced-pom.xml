@@ -56,6 +56,21 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <source>8</source>
+          <detectJavaApiLink>false</detectJavaApiLink>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>net.nicoulaj.maven.plugins</groupId>
         <artifactId>checksum-maven-plugin</artifactId>
         <version>1.10</version>
@@ -80,7 +95,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>net.oijon.algonquin.gui.GUILauncher</mainClass>
+                  <mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
                 </transformer>
               </transformers>
             </configuration>
