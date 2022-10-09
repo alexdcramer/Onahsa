@@ -1,13 +1,9 @@
 package net.oijon.algonquin.gui;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.*;
 import java.net.*;
-import java.nio.file.*;
 import java.util.*;
-import java.util.stream.*;
-
+import net.oijon.algonquin.console.Console;
 import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.trm.TRM;
 
@@ -37,7 +33,7 @@ public class Launcher {
 		Functions.copyFiles();
 		
 		if (Arrays.stream(args).anyMatch("-c"::equals)) {
-			
+			Console.run();
 		} else {
 			GUI.main(args);
 		}

@@ -38,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
 
@@ -172,9 +173,7 @@ public class GUI extends Application {
 		refreshPacksButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				String[] packnames;
-				File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
-				packnames = packsDirFile.list();
+				String[] packnames = Functions.getPacks();				
 				
 				packListVBox.getChildren().clear();
 				
