@@ -1,0 +1,4 @@
+copyfiles - Copies over default sound packs from jar.
+exit - Exits the command line.
+getpacks - Returns list of all installed sound packs.
+help - Displays this list.

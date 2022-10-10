@@ -10,12 +10,14 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import net.oijon.algonquin.gui.Launcher;
+import net.oijon.algonquin.tts.IPA;
 
 // Meant to keep GUI and console actions the same
 public class Functions {
@@ -95,11 +97,28 @@ public class Functions {
         if (fileSystem2 != null) {
         	fileSystem2.close();
         }
+        
+        
 	}
 
 	public static String[] getPacks() {
 		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
 		String[] packnames = packsDirFile.list();
 		return packnames;
+	}
+	
+	//Returns a string so that any errors can be printed in the console
+	//Will be changed in the future
+	public static String pronounce(String packname, String input, String outputFile) {
+		String message = IPA.createAudio(IPA.getFileNames(input), outputFile, packname);
+		return message;
+	}
+	
+	public static String selectPack(String packname) {
+		String[] packnames = getPacks();
+		if (Arrays.stream(packnames).anyMatch(packname::equals)) {
+			return packname;
+		}
+		return "newclassic";
 	}
 }

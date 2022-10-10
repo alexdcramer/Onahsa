@@ -232,7 +232,7 @@ public class GUI extends Application {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
 	        		    public void run() {
-	        		    	String message = IPA.createAudio(IPA.getFileNames(insert.getText()), fileNameField.getText(), selectedPack);
+	        		    	String message = Functions.pronounce(selectedPack, insert.getText(), fileNameField.getText());
 	    	        		console.setText(message);
 	    	        		System.out.println(message);
 	        		    }
