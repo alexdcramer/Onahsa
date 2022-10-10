@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
@@ -25,7 +26,7 @@ public class Console {
 		String selectedPack = "newclassic";
 		String outputName = "output";
 		String input;
-		
+		boolean debug = true;
 		
 		for (int i = 0; i < 40; i++) {
 			System.out.print("#");
@@ -38,7 +39,7 @@ public class Console {
 		System.out.println("Type \"help\" for a list of all commands!");
 		while(loop) {
 			System.out.print(">");
-			String command[] = userInput.nextLine().split(" ");
+			String command[] = parse(userInput.nextLine(), debug);
 			
 			for (int i = 0; i < command.length; i++) {
 				command[i].toLowerCase();
@@ -103,10 +104,55 @@ public class Console {
 					System.out.println(getTime() + "Usage: selectpack [pack name]");
 				}
 			}
+			else if (command[0].equals("setoutput")) {
+				if (command.length > 2) {
+					selectedPack = Functions.selectPack(command[1]);
+				} else {
+					System.err.println(getTime() + "No name given to change pack to!");
+					System.out.println(getTime() + "Usage: selectpack [pack name]");
+				}
+			}
 			else {
 				System.out.println(getTime() + "Unknown command. Use \"help\" to see a list of all commands.");
 			}
 		}
+	}
+	
+	//Gets parameters and command as two separate things, then return as an ArrayList
+	//Structure:
+	//0 - main command, used in main if statement (yes i know thats a bad idea but idk what else to do here)
+	//1 - non-args, used for inputs
+	//2+ - arguments, self-explanatory
+	public static String[] parse(String input, boolean debug) {
+		String command[] = input.split(" ");
+		
+		ArrayList<String> output = new ArrayList<String>();
+		
+		output.add(command[0]); //the command will always be in the front
+		//add non-parameters to output
+		String nonArgs = "";
+		for (int i = 1; i < command.length; i++) {
+			if (command[i].charAt(1) != '-') {
+				nonArgs += command[i] + " ";
+			}
+		}
+		output.add(nonArgs); //should always be in position 1
+		
+		//add parameters to output
+		for (int i = 0; i < command.length; i++) {
+			if (command[i].charAt(0) == '-') {
+				output.add(command[i] + " " + command[i + 1]);
+				//skips the next part as it is part of the argument
+				i++;
+			}
+		}
+		
+		String realOutput[] = new String[output.size()];
+		for (int i = 0; i < realOutput.length; i++) {
+			realOutput[i] = output.get(i);
+		}
+		
+		return realOutput;
 	}
 	
 }
