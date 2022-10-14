@@ -12,6 +12,10 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.diogonunes.jcolor.AnsiFormat;
+import static com.diogonunes.jcolor.Ansi.colorize;
+import static com.diogonunes.jcolor.Attribute.*;
+
 public class Console {
 	
 	public static String getTime() {
@@ -28,15 +32,30 @@ public class Console {
 		String input;
 		boolean debug = true;
 		
+		AnsiFormat fError = new AnsiFormat(YELLOW_TEXT(), RED_BACK());
+		AnsiFormat fWarning = new AnsiFormat(YELLOW_TEXT(), BOLD());
+		AnsiFormat fInfo = new AnsiFormat(CYAN_TEXT());
+		AnsiFormat fSuccess = new AnsiFormat(GREEN_TEXT());
+		
+		String error = "[ERROR] ";
+		String warning = "[WARNING] ";
+		String info = "[INFO] ";
+		String success = "[SUCCESS] ";
+		
 		for (int i = 0; i < 40; i++) {
 			System.out.print("#");
 		}
 		System.out.println();
 		
 		Scanner userInput = new Scanner(System.in);
-		System.out.println("Welcome to the AlgonquinTTS command line!");
-		System.out.println("v0.3.2-SNAPSHOT");
-		System.out.println("Type \"help\" for a list of all commands!");
+		System.out.println(colorize("Welcome to the AlgonquinTTS command line!", fInfo));
+		System.out.println(colorize("v0.3.2-SNAPSHOT", fInfo));
+		System.out.println(colorize("Type \"help\" for a list of all commands!", fSuccess));
+		for (int i = 0; i < 40; i++) {
+			System.out.print("#");
+		}
+		System.out.println();
+		
 		while(loop) {
 			System.out.print(">");
 			String command[] = parse(userInput.nextLine(), debug);
@@ -47,37 +66,43 @@ public class Console {
 			
 			if (command[0].equals("help")) {
 				//Reads out all commands, console only
-				System.out.println(getTime() + "List of all commands:");
+				System.out.println(colorize(success + getTime() + "List of all commands:", fSuccess));
 				try (InputStream in = Console.class.getResourceAsStream("/help.txt"); 
 						BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
 					String line;
 					while ((line = br.readLine()) != null) {
-						System.out.println(line);
+						System.out.println(colorize(info + line, fInfo));
 					   }
 				} catch (IOException e) {
-					System.err.println(getTime() + "Help file unreadable: " + e.toString());
+					System.err.println(colorize(error + getTime() + "Help file unreadable: " + e.toString(), fError));
 					e.printStackTrace();
 				}
 			}
 			else if (command[0].equals("copyfiles")) {
 				try {
-					System.out.println(getTime() + "Copying default files from jar...");
+					System.out.println(colorize(info + getTime() + "Copying default files from jar...", fInfo));
 					Functions.copyFiles();
-					System.out.println(getTime() + "Files successfully copied!");
+					System.out.println(colorize(success + getTime() + "Files successfully copied!", fSuccess));
 				} catch (URISyntaxException | IOException e) {
-					System.err.println(getTime() + "Error when creating files! " + e.toString());
+					System.err.println(colorize(error + getTime() + "Error when creating files! " + e.toString(), fError));
 					e.printStackTrace();
 				}
 			}
 			else if (command[0].equals("exit")) {
-				System.out.println(getTime() + "Exiting...");
+				System.out.println(colorize(info + getTime() + "Exiting...", fInfo));
 				loop = false;
 			}
 			else if (command[0].equals("getpacks")) {
 				String[] packs = Functions.getPacks();
-				System.out.println(getTime() + "Installed soundpacks:");
+				System.out.println(colorize(info + getTime() + "Installed soundpacks:", fInfo));
 				for (int i = 0; i < packs.length; i++) {
-					System.out.println("Pack " + (i + 1) + " - " + packs[i]);
+					System.out.println(colorize(info + "Pack " + (i + 1) + " - " + packs[i], fInfo));
+				}
+			}
+			else if (command[0].equals("printcommand")) {
+				System.out.println(colorize(info + "This is a debug command!"));
+				for (int i = 0; i < command.length; i++) {
+					System.out.println(colorize(info + "Argument " + i + ": " + command[i], info));
 				}
 			}
 			else if (command[0].equals("pronounce")) {
@@ -87,33 +112,35 @@ public class Console {
 				if (command.length > 2) {
 					//Gets the string being pronounced
 					for (int i = 1; i < command.length; i++) {
-						pronounceString += command[i] + " ";
+						if (command[i].charAt(0) != '-') {
+							pronounceString += command[i] + " ";
+						}
 					}
 					System.out.println(pronounceString);
 					Functions.pronounce(selectedPack, pronounceString, outputName);
 				} else {
-					System.err.println(getTime() + "No input given to pronounce!");
-					System.out.println(getTime() + "Usage: pronounce [IPA string]");
+					System.err.println(colorize(getTime() + "No input given to pronounce!", fError));
+					System.out.println(colorize(getTime() + "Usage: pronounce [IPA string]", fInfo));
 				}
 			}
 			else if (command[0].equals("selectpack")) {
 				if (command.length > 2) {
 					selectedPack = Functions.selectPack(command[1]);
 				} else {
-					System.err.println(getTime() + "No name given to change pack to!");
-					System.out.println(getTime() + "Usage: selectpack [pack name]");
+					System.err.println(colorize(error + getTime() + "No name given to change pack to!", fError));
+					System.out.println(colorize(info + getTime() + "Usage: selectpack [pack name]", fInfo));
 				}
 			}
 			else if (command[0].equals("setoutput")) {
 				if (command.length > 2) {
 					selectedPack = Functions.selectPack(command[1]);
 				} else {
-					System.err.println(getTime() + "No name given to change pack to!");
-					System.out.println(getTime() + "Usage: selectpack [pack name]");
+					System.err.println(colorize(error + getTime() + "No name given to change pack to!", fError));
+					System.out.println(colorize(info + getTime() + "Usage: selectpack [pack name]", fInfo));
 				}
 			}
 			else {
-				System.out.println(getTime() + "Unknown command. Use \"help\" to see a list of all commands.");
+				System.out.println(colorize(error + getTime() + "Unknown command. Use \"help\" to see a list of all commands.", fError));
 			}
 		}
 	}
@@ -140,10 +167,12 @@ public class Console {
 		
 		//add parameters to output
 		for (int i = 0; i < command.length; i++) {
-			if (command[i].charAt(0) == '-') {
+			if (command[i].length() >= 2 && command[i].substring(0, 2) == "--") {
 				output.add(command[i] + " " + command[i + 1]);
 				//skips the next part as it is part of the argument
 				i++;
+			} else if (command[i].length() >= 1 && command[i].charAt(0) == '-') {
+				output.add(command[i]);
 			}
 		}
 		
