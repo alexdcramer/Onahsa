@@ -38,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
@@ -236,8 +237,10 @@ public class GUI extends Application {
 	    	        		console.setText(message);
 	    	        		System.out.println(message);
 	        		    }
-	        		});  
+	        		});
 	        		t1.start();
+	        		System.out.println("[DÉBOGUER] Fil en cours d'exécution!");
+	        		t1.stop();
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
@@ -504,6 +507,15 @@ public class GUI extends Application {
 		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/algonquin-logo.png")));
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Algonquin Text-to-Speach");
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+			
+		});
 		primaryStage.show();
 		
 		
