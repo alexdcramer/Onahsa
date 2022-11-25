@@ -238,9 +238,9 @@ public class GUI extends Application {
 	    	        		System.out.println(message);
 	        		    }
 	        		});
+	        		t1.setDaemon(true);
 	        		t1.start();
 	        		System.out.println("[DÉBOGUER] Fil en cours d'exécution!");
-	        		t1.stop();
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
@@ -325,8 +325,9 @@ public class GUI extends Application {
 	    	        		console.setText(message);
 	    	        		System.out.print(message);
 	        		    }
-	        		});  
-	        		t1.start();	        		
+	        		});
+	        		t1.setDaemon(true);
+	        		t1.start();		
 	        	} else {
 	        		console.setText("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
 	        	}
