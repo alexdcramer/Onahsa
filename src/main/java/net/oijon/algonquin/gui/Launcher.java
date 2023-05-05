@@ -30,7 +30,7 @@ public class Launcher {
 			e.printStackTrace();
 		}
 		
-		Functions.copyFiles();
+		//Functions.copyFiles();
 		
 		if (Arrays.stream(args).anyMatch("-c"::equals)) {
 			Console.run();

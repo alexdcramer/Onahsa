@@ -5,10 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
 	<artifactId>algonquin</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>algonquin</name>
-	<description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
+	<description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
 	<url>http://github.com/N3ther/Algonquin-TTS</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,11 +22,6 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.princeton-java-introduction</groupId>
-			<artifactId>stdlib</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
