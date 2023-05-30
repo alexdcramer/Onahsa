@@ -1,11 +1,9 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
 	<artifactId>algonquin</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>algonquin</name>
 	<description>A text-to-speech program meant to handle the International Phonetic Alphabet</description>
@@ -41,6 +39,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>19-ea+5</version>
+			<classifier>win</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>19-ea+5</version>
+			<classifier>mac</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
 			<version>19-ea+5</version>
 		</dependency>
@@ -51,15 +61,15 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.fusesource.jansi/jansi -->
 		<dependency>
-		    <groupId>org.fusesource.jansi</groupId>
-		    <artifactId>jansi</artifactId>
-		    <version>2.4.0</version>
+			<groupId>org.fusesource.jansi</groupId>
+			<artifactId>jansi</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.diogonunes/JColor -->
 		<dependency>
-		    <groupId>com.diogonunes</groupId>
-		    <artifactId>JColor</artifactId>
-		    <version>5.5.1</version>
+			<groupId>com.diogonunes</groupId>
+			<artifactId>JColor</artifactId>
+			<version>5.5.1</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
@@ -67,20 +77,16 @@
 			<id>ossrh</id>
 			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
 	</distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-compiler-plugin</artifactId>
-			    <version>3.8.0</version>
-			    <configuration>
-			        <release>11</release>
-			    </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<release>11</release>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
