@@ -9,6 +9,7 @@ import java.io.SequenceInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
@@ -36,7 +37,7 @@ public class IPA
 		//TODO: find a way to get this read in from a file
 		
 		//g and ɡ are the same sound, however two different points in unicode. as such, they need to both be in there to prevent disappearing chars
-    	String[] fileNames = new String[input.length()];
+    	ArrayList<String> fileNames = new ArrayList<String>();
         
    
         int inputLength = input.length();
@@ -49,8 +50,8 @@ public class IPA
         	
         	//handles spaces.
         	if (c == ' ') {
-        		//if space, set to space.wav
-        		fileNames[currentFileName] = "space";
+        		//if space, do not add to names
+        		// TODO: allow this to either not add the file or have a pause based off settings
         		currentFileName++;
         	}
         	
@@ -62,7 +63,7 @@ public class IPA
         			if (currentFileName != 0) {
             			//if diacritic, add to file name of previous char.
         				currentFileName--;
-        				fileNames[currentFileName] += String.format("%04x", (int)c);;
+        				fileNames.set(currentFileName, fileNames.get(currentFileName) +  String.format("%04x", (int)c));
         				currentFileName++;
         			} else {
         				System.err.println("Postdiacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
@@ -75,9 +76,9 @@ public class IPA
         		if (c == preDiacriticList[l]) {
         			System.out.println(preDiacriticList[l]);
         			isPreDiacritic = true;
-        			if (currentFileName != fileNames.length) {
+        			if (currentFileName != fileNames.size()) {
         				//if prediacritic, add to file name of next char.
-        				fileNames[currentFileName] = Character.toString(c);
+        				fileNames.set(currentFileName, fileNames.get(currentFileName) + Character.toString(c));
 	        		} else {
 	    				System.err.println("Prediacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
 	    			}
@@ -90,12 +91,11 @@ public class IPA
 	        		if (c == ipaList[k]) {
 	        			//sets file name to character and goes to the next file name
 	        			//checks if null because if not, prediacritics would be overwritten.
-	        			if (fileNames[currentFileName] == null) {
-	        				fileNames[currentFileName] = Character.toString(c);
-	        			} else {
-	        				fileNames[currentFileName] += Character.toString(c);
+	        			try {
+	        				fileNames.set(currentFileName, fileNames.get(currentFileName) + Character.toString(c));
+	        			} catch (IndexOutOfBoundsException e) {
+	        				fileNames.add(Character.toString(c));
 	        			}
-	        			
 	        			currentFileName++;
 	        		}
 	        	}
@@ -110,7 +110,13 @@ public class IPA
         	// (thank you Leonard Manzara from the University of Calgary!)
         
         }
-		return fileNames;
+        
+        String[] fileNamesArray = new String[fileNames.size()];
+        for (int i = 0; i < fileNames.size(); i++) {
+        	fileNamesArray[i] = fileNames.get(i);
+        }
+        
+		return fileNamesArray;
 	}
 	
 	/**
@@ -121,6 +127,8 @@ public class IPA
 	 * @return Any messages generated while making the audio (exceptions, warnings, etc.)
 	 */
 	public static String createAudio(String[] fileNames, String name, String packName){
+		
+		//TODO: get speed and adjust files accordingly
 		
 		String exception = "";
 		long fileLength = 0;

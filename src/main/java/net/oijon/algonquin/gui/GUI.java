@@ -240,7 +240,6 @@ public class GUI extends Application {
 	        		});
 	        		t1.setDaemon(true);
 	        		t1.start();
-	        		System.out.println("[DÉBOGUER] Fil en cours d'exécution!");
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
