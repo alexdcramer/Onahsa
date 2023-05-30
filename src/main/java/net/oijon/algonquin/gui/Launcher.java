@@ -1,10 +1,8 @@
 package net.oijon.algonquin.gui;
 
 import java.io.IOException;
-import java.net.*;
 import java.util.*;
 import net.oijon.algonquin.console.Console;
-import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.trm.TRM;
 
 /**
@@ -17,10 +15,8 @@ public class Launcher {
 	 * Launches the GUI, as JavaFX cannot handle the GUI being launched directly.
 	 * Also creates default files (packs classic and newclassic).
 	 * @param args Passed on to GUI to run.
-	 * @throws URISyntaxException Should never be thrown, however the compiler yelled at me if I didn't include this.
-	 * @throws IOException Thrown if for some reason it cannot create directories. Should never be thrown.
 	 */
-	public static void main(String[] args) throws URISyntaxException, IOException {
+	public static void main(String[] args) {
 		
 		System.out.println(Arrays.toString(args));
 		try {
