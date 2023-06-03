@@ -4,9 +4,9 @@
   <groupId>net.oijon</groupId>
   <artifactId>algonquin</artifactId>
   <name>algonquin</name>
-  <version>0.3.3-SNAPSHOT</version>
+  <version>0.3.3</version>
   <description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
-  <url>http://github.com/N3ther/Algonquin-TTS</url>
+  <url>http://github.com/alexdcramer/Algonquin-TTS</url>
   <developers>
     <developer>
       <name>Alex Cramer</name>

@@ -17,6 +17,7 @@ import net.oijon.algonquin.console.commands.PronounceCMD;
 import net.oijon.algonquin.console.commands.SetNameCMD;
 import net.oijon.algonquin.console.commands.SetPackCMD;
 import net.oijon.algonquin.console.commands.SetPathCMD;
+import net.oijon.algonquin.console.commands.TRMTestCMD;
 import net.oijon.utils.logger.Log;
 
 public class Console {
@@ -54,6 +55,7 @@ public class Console {
 		commands.add(new SetNameCMD(log));
 		commands.add(new SetPackCMD(log));
 		//commands.add(new SetPathCMD(log));
+		commands.add(new TRMTestCMD(log));
 	}
 	
 	public static void run() {

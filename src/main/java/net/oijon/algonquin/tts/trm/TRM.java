@@ -10,12 +10,17 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
+import net.oijon.algonquin.console.Console;
+import net.oijon.utils.logger.Log;
+
 /**
  * @author N3ther
  * Highly experimental.
  */
 public class TRM {
 
+	static Log log = Console.getLog();
+	
 	/**
 	 * Creates and plays a test sound. Will be removed in the future.
 	 * @throws IOException Thrown when it can't create the output file for whatever reason.
@@ -70,29 +75,32 @@ public class TRM {
 	 * Creates a tube (See net.oijon.algonquin.tts.trm.Tube) that is 17cm long. Will be removed in the future.
 	 * @return Any debug information generated.
 	 */
-	public static String createTestTube() {
-		String exception = "";
+	public static void createTestTube() {
 		Tube testTube = new Tube(17);
 		Voicebox voiceBox = new Voicebox(5);
 		
-		exception += "\nVoicebox wave: ";
+		log.info("Voicebox wave: ");
 		
+		String frames = "";
 		for (int i = 0; i < testTube.getSampleRate()*2; i++) {
-			exception += voiceBox.frame() + ", ";
+			frames += voiceBox.frame() + ", ";
 		}
+		log.info(frames);
 		
-		exception += ("outwards elements: " + Arrays.toString(testTube.out())  + "\n");
-		exception += "Full array: "  + "\n";
+		log.info("outwards elements: " + Arrays.toString(testTube.out()));
+		log.info("Full array:");
+		String fullArray = "";
 		for (int i = 0; i < testTube.getSampleRate(); i++) {
-			exception += testTube.getDelayLine()[0][i] + ", ";
+			fullArray += testTube.getDelayLine()[0][i] + ", ";
 		}
-		exception += "\n";
+		log.info(fullArray);
 		
+		String delayLine = "";
 		for (int i = 0; i < testTube.getSampleRate(); i++) {
-			exception += testTube.getDelayLine()[1][i] + ", ";
+			delayLine += testTube.getDelayLine()[1][i] + ", ";
 		}
+		log.info(delayLine);
 		
-		return exception;
 	}
 	
 	/**
@@ -100,17 +108,16 @@ public class TRM {
 	 * @return Any debug information generated.
 	 * @throws IOException Thrown when it can't create the output file for whatever reason.
 	 */
-	public static String createTestWave() throws IOException {
-		String exception = "";
+	public static void createTestWave() throws IOException {
 		
 		Voicebox voiceBox = new Voicebox(1);
 		
 		final double sampleRate = 44100.0;
         final double seconds = 2.0;
 
-        exception += "Sample Rate: " + sampleRate + "\n";
-        exception += "Amplitude: 1\n";
-        exception += "Seconds: " + seconds + "\n";
+        log.info("Sample Rate: " + sampleRate);
+        log.info("Amplitude: 1");
+        log.info("Seconds: " + seconds);
         
         
         float[] buffer = new float[(int)(seconds * sampleRate)];
@@ -132,23 +139,23 @@ public class TRM {
         
         if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
         	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-        	exception += "Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS" + "\n";
+        	log.info("Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS");
         }
         
         File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav");
-        exception += "Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "\n";
+        log.info("Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav");
 
         final boolean bigEndian = false;
         final boolean signed = true;
 
-        exception += "Big Endian: " + bigEndian + "\n";
-        exception += "Signed: " + signed + "\n";
+        log.info("Big Endian: " + bigEndian);
+        log.info("Signed: " + signed);
         
         final int bits = 16;
         final int channels = 1;
 
-        exception += "Bits: " + bits + "\n";
-        exception += "Channels: " + channels + "\n";
+        log.info("Bits: " + bits);
+        log.info("Channels: " + channels);
         
         AudioFormat format = new AudioFormat((float)sampleRate, bits, channels, signed, bigEndian);
         ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
@@ -156,7 +163,6 @@ public class TRM {
         AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
         audioInputStream.close();
 		
-		return exception;
 	}
 	/**
 	 * Puts a Voicebox through a 17cm tube. Currently not working as expected.
@@ -164,8 +170,7 @@ public class TRM {
 	 * @return Any debug information generated.
 	 * @throws IOException Thrown when it can't create the output file for whatever reason.
 	 */
-	public static String createTest17cmWave() throws IOException {
-		String exception = "";
+	public static void createTest17cmWave() throws IOException {
 		
 		Voicebox voiceBox = new Voicebox(1);
 		Tube tube = new Tube(17);
@@ -173,9 +178,9 @@ public class TRM {
 		final double sampleRate = 44100.0;
         final double seconds = 2.0;
 
-        exception += "Sample Rate: " + sampleRate + "\n";
-        exception += "Amplitude: 1\n";
-        exception += "Seconds: " + seconds + "\n";
+        log.info("Sample Rate: " + sampleRate);
+        log.info("Amplitude: 1");
+        log.info("Seconds: " + seconds);
         
         
         float[] buffer = new float[(int)(seconds * sampleRate)];
@@ -198,29 +203,29 @@ public class TRM {
         
         if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
         	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-        	exception += "Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS" + "\n";
+        	log.info("Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS");
         }
         
         File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav");
-        exception += "Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "\n";
+        log.info("Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav");
 
         final boolean bigEndian = false;
         final boolean signed = true;
 
-        exception += "Big Endian: " + bigEndian + "\n";
-        exception += "Signed: " + signed + "\n";
+        log.info("Big Endian: " + bigEndian);
+        log.info("Signed: " + signed);
         
         final int bits = 16;
         final int channels = 1;
 
-        exception += "Bits: " + bits + "\n";
-        exception += "Channels: " + channels + "\n";
+        log.info("Bits: " + bits);
+        log.info("Channels: " + channels);
         
-        exception += "Channels: " + channels + "\n";
+        log.info("Channels: " + channels);
         
-        exception += "Array:\n";
-        exception += Arrays.toString(tube.getDelayLine()[0]) + "\n";
-        exception += Arrays.toString(tube.getDelayLine()[1]) + "\n";
+        log.info("Array:");
+        log.info(Arrays.toString(tube.getDelayLine()[0]));
+        log.info(Arrays.toString(tube.getDelayLine()[1]));
         
         AudioFormat format = new AudioFormat((float)sampleRate, bits, channels, signed, bigEndian);
         ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
@@ -228,7 +233,6 @@ public class TRM {
         AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
         audioInputStream.close();
 		
-		return exception;
 	}
 	/**
 	 * Do not use.
@@ -236,8 +240,7 @@ public class TRM {
 	 * Unfinished, worse version of create17cmWave.
 	 * @return Currently blank.
 	 */
-	public static String createSchwaTubeTest() {
-		String exception = "";
+	public static void createSchwaTubeTest() {
 		
 		int sampleRate = 2018; // L = c/F, where L is the length (17cm), c is the speed of sound (cm/s), and F is the sampling frequency
 		float delayLine[][] = new float[sampleRate][2];
@@ -247,7 +250,6 @@ public class TRM {
 			}
 		}
 		
-		return exception;
 	}
 	
 }
