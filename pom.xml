@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 	<name>algonquin</name>
 	<description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
-	<url>http://github.com/N3ther/Algonquin-TTS</url>
+	<url>http://github.com/alexdcramer/Algonquin-TTS</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -60,11 +60,10 @@
 			<artifactId>jansi</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.diogonunes/JColor -->
 		<dependency>
-			<groupId>com.diogonunes</groupId>
-			<artifactId>JColor</artifactId>
-			<version>5.5.1</version>
+			<groupId>net.oijon</groupId>
+			<artifactId>utils</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>

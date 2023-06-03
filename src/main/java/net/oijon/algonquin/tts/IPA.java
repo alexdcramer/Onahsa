@@ -16,13 +16,19 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import net.oijon.algonquin.console.Console;
+import net.oijon.utils.logger.Log;
 
 /**
  * @author N3ther
  *
  */
+
 public class IPA
 {
 	static char[] ipaList = {'p', 'b', 't', 'd', 'ʈ', 'ɖ', 'c', 'ɟ', 'k', 'g', 'ɡ', 'q', 'ɢ', 'ʔ', 'm', 'ɱ', 'n', 'ɳ', 'ɲ', 'ŋ', 'ɴ', 'ʙ', 'r', 'ʀ', 'ⱱ', 'ɾ', 'ɽ', 'ɸ', 'β', 'f', 'v', 'θ', 'ð', 's', 'z', 'ʃ', 'ʒ', 'ʂ', 'ʐ', 'ç', 'ʝ', 'x', 'ɣ', 'χ', 'ʁ', 'ħ', 'ʕ', 'h', 'ɦ', 'ɬ', 'ɮ', 'ʋ', 'ɹ', 'ɻ', 'j', 'ɰ', 'l', 'ɭ', 'ʎ', 'ʟ', 'ʍ', 'w', 'ɥ', 'ʜ', 'ʢ', 'ʡ', 'ɕ', 'ʑ', 'ɺ', 'ɧ', 'i', 'y', 'ɨ', 'ʉ', 'ɯ', 'u', 'ɪ', 'ʏ', 'ʊ', 'e', 'ø', 'ɘ', 'ɵ', 'ɤ', 'o', 'ə', 'ɛ', 'œ', 'ɜ', 'ɞ', 'ʌ', 'ɔ', 'æ', 'ɐ', 'a', 'ɶ', 'ɑ', 'ɒ'};
@@ -33,6 +39,9 @@ public class IPA
 	 * @param input The raw IPA input
 	 * @return A string array with each file's name
 	 */
+	
+	private static Log log = Console.getLog();
+	
 	public static String[] getFileNames(String input) {
 		//TODO: find a way to get this read in from a file
 		
@@ -66,7 +75,7 @@ public class IPA
         				fileNames.set(currentFileName, fileNames.get(currentFileName) +  String.format("%04x", (int)c));
         				currentFileName++;
         			} else {
-        				System.err.println("Postdiacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
+        				log.warn("Postdiacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
         			}
         			
         		}
@@ -80,7 +89,7 @@ public class IPA
         				//if prediacritic, add to file name of next char.
         				fileNames.set(currentFileName, fileNames.get(currentFileName) + Character.toString(c));
 	        		} else {
-	    				System.err.println("Prediacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
+	    				log.warn("Prediacritic \'" + c + "\' attempted to be added to non-existant character! Skipping...");
 	    			}
         		}
         	}
@@ -126,18 +135,16 @@ public class IPA
 	 * @param packName The name of the sound pack to add to
 	 * @return Any messages generated while making the audio (exceptions, warnings, etc.)
 	 */
-	public static String createAudio(String[] fileNames, String name, String packName){
+	public static void createAudio(String[] fileNames, String name, String packName){
 		
 		//TODO: get speed and adjust files accordingly
-		
-		String exception = "";
-		long fileLength = 0;
+				
 		try {
 			URL packURL = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName).toURI().toURL();
+			log.debug("Using pack at " + packURL);
 		} catch (MalformedURLException e1) {
 			URL packURL = IPA.class.getResource("/" + packName);
-			exception += "packURL is malformed! Attempting to get resources from jar instead...";
-			exception += e1.toString();
+			log.warn("packURL is malformed! Attempting to get resources from jar instead... " + e1.toString());
 			e1.printStackTrace();
 		}
 		AudioInputStream allStreams[] = new AudioInputStream[fileNames.length];
@@ -147,10 +154,10 @@ public class IPA
 				File clipFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + fileNames[i] + ".wav");
 				try {
 					url = clipFile.toURI().toURL();
+					log.debug("URL found for clip: " + url);
 				} catch (MalformedURLException e1) {
 					url = IPA.class.getResource("/" + packName + "/" + fileNames[i] + ".wav");
-					exception += "url is malformed! Attempting to get resources from jar instead...";
-					exception += e1.toString();
+					log.warn("url is malformed! Attempting to get resources from jar instead... " + e1.toString());
 					e1.printStackTrace();
 				}
 				if (clipFile.exists() == false) {
@@ -160,13 +167,13 @@ public class IPA
 							for (int k = 0; k < ipaList.length; k++) {
 								if (fileNames[i].charAt(j) == ipaList[k]) {
 									foundValid = true;
-									exception += "Invalid sound " + fileNames[i] + " detected! This usually means the sound hasn't been added yet. Reverting to " + fileNames[i].charAt(j) + "\n";
+									log.warn("Invalid sound " + fileNames[i] + " detected! This usually means the sound hasn't been added yet. Reverting to " + fileNames[i].charAt(j));
 									fileNames[i] = Character.toString(fileNames[i].charAt(j));
 								}
 							}
 						}
 						if (foundValid == false) {
-							exception += "Invalid sound " + fileNames[i] + " detected! No valid replacement found, skipping...\n";
+							log.err("Invalid sound " + fileNames[i] + " detected! No valid replacement found, skipping...");
 							fileNames[i] = "space";
 						}
 					}
@@ -189,31 +196,56 @@ public class IPA
 				
 			AudioSystem.write(allStreams[0], AudioFileFormat.Type.WAVE, new File(System.getProperty("user.home") + 
 					"/AlgonquinTTS/" + name + ".wav"));
-			exception += "Created file " + System.getProperty("user.home") + 
-					"/AlgonquinTTS/" + name + ".wav\n";
-			Clip clip = AudioSystem.getClip();
-		    AudioInputStream ais = AudioSystem.getAudioInputStream(
-		    		new File(System.getProperty("user.home") + 
-							"/AlgonquinTTS/" + name + ".wav").getAbsoluteFile()
-		    		);
-		    clip.open(ais);
-		    clip.start();
-		    fileLength += clip.getMicrosecondLength();
-		    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
-		    {
-		    }
-		    ais.close();
-		    exception += "Successfully played " + Arrays.toString(fileNames) + "\n";
+			log.info("Created file " + System.getProperty("user.home") + 
+					"/AlgonquinTTS/" + name + ".wav");
+			
+			pronounce(name);
 			
 		} catch (Exception e) {
-			exception = e.toString();
+			log.err(e.toString());
 			e.printStackTrace();
 		}
 		
-		
-		return exception;
 	}
 	
+	private static void pronounce(String name) {
+		
+		final int BUFFER_SIZE = 128000;
+		AudioInputStream audioStream;
+		SourceDataLine sourceLine;
+		
+		File soundFile = new File(System.getProperty("user.home") + 
+				"/AlgonquinTTS/" + name + ".wav");
+		try {
+            audioStream = AudioSystem.getAudioInputStream(soundFile);
+            AudioFormat audioFormat = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+            sourceLine.open(audioFormat);
+            
+            sourceLine.start();
+
+            int nBytesRead = 0;
+            byte[] abData = new byte[BUFFER_SIZE];
+            while (nBytesRead != -1) {
+                try {
+                    nBytesRead = audioStream.read(abData, 0, abData.length);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (nBytesRead >= 0) {
+                    @SuppressWarnings("unused")
+                    int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
+                }
+            }
+
+            sourceLine.drain();
+            sourceLine.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+		
+	}
 	
 	
 	public static void recordAudio(Clip clip, File file) {

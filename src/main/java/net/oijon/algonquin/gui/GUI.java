@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -11,6 +17,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +26,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -37,11 +45,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.oijon.algonquin.console.Console;
 import net.oijon.algonquin.console.Functions;
-import net.oijon.algonquin.tts.IPA;
 import net.oijon.algonquin.tts.trm.TRM;
+import net.oijon.utils.logger.Log;
 
 
 /**
@@ -50,14 +60,22 @@ import net.oijon.algonquin.tts.trm.TRM;
  */
 public class GUI extends Application {
 
-	String selectedPack;
-	
+	static Log log = Console.getLog();
+	static File logFile = new File(log.getLogFile());
+	TextArea console = new TextArea();
+	ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	/**
 	 * Creates all GUI elements. Might throw exceptions when handling TRM.
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		
+		Console.init();
+		
+		updateLog();
+		console.setPadding(Insets.EMPTY);
+		
 		//backgrounds
 		BackgroundFill backgroundFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
 		Background white = new Background(backgroundFill);
@@ -67,7 +85,6 @@ public class GUI extends Application {
 		mainBox.setAlignment(Pos.CENTER);
 		mainBox.setSpacing(5);
 		
-		selectedPack = "newclassic";
 		
 		ObservableList<String> options = 
 		    FXCollections.observableArrayList(
@@ -94,8 +111,6 @@ public class GUI extends Application {
 		consoleLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/console.png"))));
 		consoleLabel.setBackground(null);
 		consoleLabel.setPadding(new Insets(5, 0, -5, 0));
-		TextArea console = new TextArea();
-		console.setPadding(Insets.EMPTY);
 		
 		Button insertIPA = new Button();
 		insertIPA.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/insert-ipa.png"))));
@@ -118,6 +133,17 @@ public class GUI extends Application {
 		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
 		String[] packnames = packsDirFile.list();
 		
+		CheckBox logDebug = new CheckBox("Show debug messages");
+		logDebug.setTextFill(Paint.valueOf(Color.WHITE.toString()));
+		logDebug.setIndeterminate(false);
+		logDebug.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				log.setDebug(logDebug.selectedProperty().get());
+			}
+			
+		});
 		
 		VBox packListVBox = new VBox();
 				
@@ -159,7 +185,7 @@ public class GUI extends Application {
             	
 				@Override
 				public void handle(ActionEvent event) {
-					selectedPack = actionName;
+					Console.parse("setpack " + actionName);
 				}
             	
             });
@@ -207,7 +233,7 @@ public class GUI extends Application {
 		            	
 						@Override
 						public void handle(ActionEvent event) {
-							selectedPack = actionName;
+							Console.parse("setpack " + actionName);
 						}
 		            	
 		            });
@@ -233,9 +259,8 @@ public class GUI extends Application {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
 	        		    public void run() {
-	        		    	String message = Functions.pronounce(selectedPack, insert.getText(), fileNameField.getText());
-	    	        		console.setText(message);
-	    	        		System.out.println(message);
+	        		    	Console.parse("setname " + fileNameField.getText());
+	        		    	Console.parse("pronounce " + insert.getText());
 	        		    }
 	        		});
 	        		t1.setDaemon(true);
@@ -501,7 +526,7 @@ public class GUI extends Application {
 		
 		
 		mainBox.setBackground(speakers);
-		mainBox.getChildren().addAll(pronounceBox, consoleLabel, console);
+		mainBox.getChildren().addAll(pronounceBox, logDebug, consoleLabel, console);
 		
 		Scene scene = new Scene(mainBox, 750, 600);
 		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/algonquin-logo.png")));
@@ -524,5 +549,44 @@ public class GUI extends Application {
 	public static void main(String[] args) {
         launch(args);
     }
+	
+	private static String readLog() {
+		ArrayList<String> lines = new ArrayList<String>();
+		String content = "";
+		try {
+			Scanner sc = new Scanner(logFile);
+			while(sc.hasNextLine()) {
+				lines.add(sc.nextLine());
+			}
+			sc.close();
+			int toLine = lines.size() - 101;
+			if (toLine < 0) {
+				toLine = 0;
+			}
+			for (int i = lines.size() - 1; i > toLine; i--) {
+				content += lines.get(i) + "\n";
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return content;
+	}
+	
+	private void updateLog() {
+		
+		final Runnable updater = () -> {
+			Platform.runLater(() -> {
+				double scrollTop = console.getScrollTop();
+				console.setText(readLog());
+				console.setScrollTop(scrollTop);
+			});
+		};
+		scheduler.scheduleAtFixedRate(updater, 10, 10, TimeUnit.MILLISECONDS);
+	}
+	
+	
 
 }

@@ -109,9 +109,8 @@ public class Functions {
 	
 	//Returns a string so that any errors can be printed in the console
 	//Will be changed in the future
-	public static String pronounce(String packname, String input, String outputFile) {
-		String message = IPA.createAudio(IPA.getFileNames(input), outputFile, packname);
-		return message;
+	public static void pronounce(String packname, String input, String outputFile) {
+		IPA.createAudio(IPA.getFileNames(input), outputFile, packname);
 	}
 	
 	public static String selectPack(String packname) {

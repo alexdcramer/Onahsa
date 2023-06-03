@@ -1,22 +1,32 @@
 package net.oijon.algonquin.console;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
-import com.diogonunes.jcolor.AnsiFormat;
-import static com.diogonunes.jcolor.Ansi.colorize;
-import static com.diogonunes.jcolor.Attribute.*;
+import net.oijon.algonquin.console.commands.Command;
+import net.oijon.algonquin.console.commands.CopyFilesCMD;
+import net.oijon.algonquin.console.commands.CurrentPackCMD;
+import net.oijon.algonquin.console.commands.ExitCMD;
+import net.oijon.algonquin.console.commands.GetOutputLocCMD;
+import net.oijon.algonquin.console.commands.HelpCMD;
+import net.oijon.algonquin.console.commands.ListPacksCMD;
+import net.oijon.algonquin.console.commands.PronounceCMD;
+import net.oijon.algonquin.console.commands.SetNameCMD;
+import net.oijon.algonquin.console.commands.SetPackCMD;
+import net.oijon.algonquin.console.commands.SetPathCMD;
+import net.oijon.utils.logger.Log;
 
 public class Console {
+	
+	private static ArrayList<Command> commands = new ArrayList<Command>();
+	private static boolean loop = true;
+	private static String selectedPack = "newclassic";
+	private static String outputDir = System.getProperty("user.home") + "/AlgonquinTTS";
+	private static String outputName = "output";
+	private static Log log = new Log(System.getProperty("user.home") + "/AlgonquinTTS");;
 	
 	public static String getTime() {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -25,163 +35,102 @@ public class Console {
 		return time;		
 	}
 	
+	public static void init() {		
+		/*
+		 * 000000000000000000000000000000
+		 * 0    Command Instantiation   0
+		 * 000000000000000000000000000000
+		 * 0   Ordered Alphabetically   0
+		 * 000000000000000000000000000000
+		 */
+		
+		commands.add(new CopyFilesCMD(log));
+		commands.add(new CurrentPackCMD(log));
+		commands.add(new ExitCMD(log));
+		commands.add(new GetOutputLocCMD(log));
+		commands.add(new HelpCMD(log));
+		commands.add(new ListPacksCMD(log));
+		commands.add(new PronounceCMD(log));
+		commands.add(new SetNameCMD(log));
+		commands.add(new SetPackCMD(log));
+		//commands.add(new SetPathCMD(log));
+	}
+	
 	public static void run() {
-		boolean loop = true;
-		String selectedPack = "newclassic";
-		String outputName = "output";
-		String input;
-		boolean debug = true;
-		
-		AnsiFormat fError = new AnsiFormat(YELLOW_TEXT(), RED_BACK());
-		AnsiFormat fWarning = new AnsiFormat(YELLOW_TEXT(), BOLD());
-		AnsiFormat fInfo = new AnsiFormat(CYAN_TEXT());
-		AnsiFormat fSuccess = new AnsiFormat(GREEN_TEXT());
-		
-		String error = "[ERROR] ";
-		String warning = "[WARNING] ";
-		String info = "[INFO] ";
-		String success = "[SUCCESS] ";
-		
+		init();
+		String walls = "";
 		for (int i = 0; i < 40; i++) {
-			System.out.print("#");
+			walls += "#";
 		}
-		System.out.println();
+		log.info(walls);
 		
 		Scanner userInput = new Scanner(System.in);
-		System.out.println(colorize("Welcome to the AlgonquinTTS command line!", fInfo));
-		System.out.println(colorize("v0.3.2-SNAPSHOT", fInfo));
-		System.out.println(colorize("Type \"help\" for a list of all commands!", fSuccess));
-		for (int i = 0; i < 40; i++) {
-			System.out.print("#");
-		}
-		System.out.println();
+		log.info("Welcome to the AlgonquinTTS command line!");
+		log.info(net.oijon.algonquin.info.Info.getVersion());
+		log.info("Type \"help\" for a list of all commands!");
+		log.info(walls);
 		
 		while(loop) {
 			System.out.print(">");
-			String command[] = parse(userInput.nextLine(), debug);
-			
-			for (int i = 0; i < command.length; i++) {
-				command[i].toLowerCase();
+			String command[] = userInput.nextLine().split(" ");
+			parse(command);
+		}
+		userInput.close();
+	}
+	
+	public static void parse(String command) {
+		String[] newCommand = command.split(" ");
+		parse(newCommand);
+	}
+	
+	public static void parse(String[] command) {
+		boolean valid = false;
+		for (int i = 0; i < commands.size(); i++) {
+			if (command[0].equals(commands.get(i).getName())) {
+				valid = true;
+				commands.get(i).execute(command);
 			}
-			
-			if (command[0].equals("help")) {
-				//Reads out all commands, console only
-				System.out.println(colorize(success + getTime() + "List of all commands:", fSuccess));
-				try (InputStream in = Console.class.getResourceAsStream("/help.txt"); 
-						BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-					String line;
-					while ((line = br.readLine()) != null) {
-						System.out.println(colorize(info + line, fInfo));
-					   }
-				} catch (IOException e) {
-					System.err.println(colorize(error + getTime() + "Help file unreadable: " + e.toString(), fError));
-					e.printStackTrace();
-				}
-			}
-			else if (command[0].equals("copyfiles")) {
-				try {
-					System.out.println(colorize(info + getTime() + "Copying default files from jar...", fInfo));
-					Functions.copyFiles();
-					System.out.println(colorize(success + getTime() + "Files successfully copied!", fSuccess));
-				} catch (URISyntaxException | IOException e) {
-					System.err.println(colorize(error + getTime() + "Error when creating files! " + e.toString(), fError));
-					e.printStackTrace();
-				}
-			}
-			else if (command[0].equals("exit")) {
-				System.out.println(colorize(info + getTime() + "Exiting...", fInfo));
-				loop = false;
-			}
-			else if (command[0].equals("getpacks")) {
-				String[] packs = Functions.getPacks();
-				System.out.println(colorize(info + getTime() + "Installed soundpacks:", fInfo));
-				for (int i = 0; i < packs.length; i++) {
-					System.out.println(colorize(info + "Pack " + (i + 1) + " - " + packs[i], fInfo));
-				}
-			}
-			else if (command[0].equals("printcommand")) {
-				System.out.println(colorize(info + "This is a debug command!"));
-				for (int i = 0; i < command.length; i++) {
-					System.out.println(colorize(info + "Argument " + i + ": " + command[i], info));
-				}
-			}
-			else if (command[0].equals("pronounce")) {
-				
-				String pronounceString = "";
-				
-				if (command.length > 2) {
-					//Gets the string being pronounced
-					for (int i = 1; i < command.length; i++) {
-						if (command[i].charAt(0) != '-') {
-							pronounceString += command[i] + " ";
-						}
-					}
-					System.out.println(pronounceString);
-					Functions.pronounce(selectedPack, pronounceString, outputName);
-				} else {
-					System.err.println(colorize(getTime() + "No input given to pronounce!", fError));
-					System.out.println(colorize(getTime() + "Usage: pronounce [IPA string]", fInfo));
-				}
-			}
-			else if (command[0].equals("selectpack")) {
-				if (command.length > 2) {
-					selectedPack = Functions.selectPack(command[1]);
-				} else {
-					System.err.println(colorize(error + getTime() + "No name given to change pack to!", fError));
-					System.out.println(colorize(info + getTime() + "Usage: selectpack [pack name]", fInfo));
-				}
-			}
-			else if (command[0].equals("setoutput")) {
-				if (command.length > 2) {
-					selectedPack = Functions.selectPack(command[1]);
-				} else {
-					System.err.println(colorize(error + getTime() + "No name given to change pack to!", fError));
-					System.out.println(colorize(info + getTime() + "Usage: selectpack [pack name]", fInfo));
-				}
-			}
-			else {
-				System.out.println(colorize(error + getTime() + "Unknown command. Use \"help\" to see a list of all commands.", fError));
-			}
+		}
+		
+		if (!valid) {
+			log.err("'" + command[0] + "' is an invalid command. Type \"help\" for a list of all commands.");
 		}
 	}
 	
-	//Gets parameters and command as two separate things, then return as an ArrayList
-	//Structure:
-	//0 - main command, used in main if statement (yes i know thats a bad idea but idk what else to do here)
-	//1 - non-args, used for inputs
-	//2+ - arguments, self-explanatory
-	public static String[] parse(String input, boolean debug) {
-		String command[] = input.split(" ");
-		
-		ArrayList<String> output = new ArrayList<String>();
-		
-		output.add(command[0]); //the command will always be in the front
-		//add non-parameters to output
-		String nonArgs = "";
-		for (int i = 1; i < command.length; i++) {
-			if (command[i].charAt(1) != '-') {
-				nonArgs += command[i] + " ";
-			}
-		}
-		output.add(nonArgs); //should always be in position 1
-		
-		//add parameters to output
-		for (int i = 0; i < command.length; i++) {
-			if (command[i].length() >= 2 && command[i].substring(0, 2) == "--") {
-				output.add(command[i] + " " + command[i + 1]);
-				//skips the next part as it is part of the argument
-				i++;
-			} else if (command[i].length() >= 1 && command[i].charAt(0) == '-') {
-				output.add(command[i]);
-			}
-		}
-		
-		String realOutput[] = new String[output.size()];
-		for (int i = 0; i < realOutput.length; i++) {
-			realOutput[i] = output.get(i);
-		}
-		
-		return realOutput;
+	public static ArrayList<Command> commands() {
+		return new ArrayList<Command>(commands);
+	}
+	
+	public static void setLoop(boolean loop) {
+		Console.loop = loop;
+	}
+	
+	public static String getSelectedPack() {
+		return new String(selectedPack);
+	}
+	
+	public static void setSelectedPack(String selectedPack) {
+		Console.selectedPack = new String(selectedPack);
+	}
+	
+	public static String getOutputName() {
+		return new String(outputName);
+	}
+	
+	public static void setOutputName(String outputName) {
+		Console.outputName = new String(outputName);
+	}
+	
+	public static String getOutputDir() {
+		return new String(outputDir);
+	}
+	
+	public static void setOutputDir(String outputDir) {
+		Console.outputDir = new String(outputDir);
+	}
+	
+	public static Log getLog() {
+		return log;
 	}
 	
 }
