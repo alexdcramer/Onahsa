@@ -43,6 +43,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -67,7 +68,7 @@ public class GUI extends Application {
 	/**
 	 * Creates all GUI elements. Might throw exceptions when handling TRM.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "static-access" })
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -111,6 +112,21 @@ public class GUI extends Application {
 		consoleLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/console.png"))));
 		consoleLabel.setBackground(null);
 		consoleLabel.setPadding(new Insets(5, 0, -5, 0));
+		
+		TextField consoleInput = new TextField();
+		
+		Button sendToConsole = new Button("Enter");
+		sendToConsole.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Console.parse(consoleInput.getText());
+			}
+			
+		});
+		
+		HBox inputBox = new HBox(consoleInput, sendToConsole);
+		inputBox.setHgrow(consoleInput, Priority.ALWAYS);
 		
 		Button insertIPA = new Button();
 		insertIPA.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/insert-ipa.png"))));
@@ -276,7 +292,7 @@ public class GUI extends Application {
 	        		t1.setDaemon(true);
 	        		t1.start();		
 	        	} else {
-	        		console.setText("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
+	        		log.err("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
 	        	}
 	        }
 	    });
@@ -449,7 +465,8 @@ public class GUI extends Application {
 		
 		
 		mainBox.setBackground(speakers);
-		mainBox.getChildren().addAll(pronounceBox, logDebug, consoleLabel, console);
+		mainBox.getChildren().addAll(pronounceBox, logDebug, consoleLabel, console, inputBox);
+		mainBox.setVgrow(console, Priority.ALWAYS);
 		
 		Scene scene = new Scene(mainBox, 750, 600);
 		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/algonquin-logo.png")));
@@ -474,21 +491,14 @@ public class GUI extends Application {
     }
 	
 	private static String readLog() {
-		ArrayList<String> lines = new ArrayList<String>();
 		String content = "";
 		try {
 			Scanner sc = new Scanner(logFile);
 			while(sc.hasNextLine()) {
-				lines.add(sc.nextLine());
+				content += sc.nextLine() + "\n";
 			}
 			sc.close();
-			int toLine = lines.size() - 101;
-			if (toLine < 0) {
-				toLine = 0;
-			}
-			for (int i = lines.size() - 1; i > toLine; i--) {
-				content += lines.get(i) + "\n";
-			}
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

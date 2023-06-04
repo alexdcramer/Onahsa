@@ -20,7 +20,7 @@ public class HelpCMD extends Command {
 		for (int i = 0; i < 15; i++) {
 			line += "#";
 		}
-		int pages = (commands.size() / 10) + 1;
+		int pages = ((commands.size() - 1) / 10) + 1;
 		int currentPage = 1;
 		
 		if (args.length >= 2) {
@@ -31,7 +31,7 @@ public class HelpCMD extends Command {
 					currentPage = pages;
 				}
 			} catch (NumberFormatException e) {
-				log.err("'" + args[2] + "' is not a valid page number. Defaulting to page 1.");
+				log.err("'" + args[1] + "' is not a valid page number. Defaulting to page 1.");
 			}
 			
 		}
@@ -39,11 +39,13 @@ public class HelpCMD extends Command {
 		int perPage = 10;
 		if (perPage > commands.size()) {
 			perPage = commands.size();
+		} else if ((currentPage * 10) > commands.size()) {
+			perPage = commands.size() % 10;
 		}
 		
 		log.info(line + "[Help]" + line);
-		for (int i = (currentPage * 10) - 10; i < perPage; i++) {
-			Command cmd = commands.get(i);
+		for (int i = 0; i < perPage; i++) {
+			Command cmd = commands.get(i + (currentPage * 10) - 10);
 			log.info(cmd.getName() + " - " + cmd.getDescription());
 		}
 		log.info(line + "[" + currentPage + "/" + pages + "]" + line);

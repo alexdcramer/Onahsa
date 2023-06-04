@@ -9,6 +9,7 @@ import java.util.Scanner;
 import net.oijon.algonquin.console.commands.Command;
 import net.oijon.algonquin.console.commands.CopyFilesCMD;
 import net.oijon.algonquin.console.commands.CurrentPackCMD;
+import net.oijon.algonquin.console.commands.DebugInfoCMD;
 import net.oijon.algonquin.console.commands.ExitCMD;
 import net.oijon.algonquin.console.commands.GetOutputLocCMD;
 import net.oijon.algonquin.console.commands.HelpCMD;
@@ -47,6 +48,7 @@ public class Console {
 		
 		commands.add(new CopyFilesCMD(log));
 		commands.add(new CurrentPackCMD(log));
+		commands.add(new DebugInfoCMD(log));
 		commands.add(new ExitCMD(log));
 		commands.add(new GetOutputLocCMD(log));
 		commands.add(new HelpCMD(log));
