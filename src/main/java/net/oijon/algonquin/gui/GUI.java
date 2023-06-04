@@ -116,6 +116,7 @@ public class GUI extends Application {
 		TextField consoleInput = new TextField();
 		
 		Button sendToConsole = new Button("Enter");
+		sendToConsole.setPadding(new Insets(5, 10, 5, 10));
 		sendToConsole.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
