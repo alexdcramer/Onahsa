@@ -137,4 +137,9 @@ public class Console {
 		return log;
 	}
 	
+	public static void main(String args[]) {
+		init();
+		run();
+	}
+	
 }

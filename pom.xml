@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
 	<artifactId>algonquin</artifactId>
@@ -63,7 +65,7 @@
 		<dependency>
 			<groupId>net.oijon</groupId>
 			<artifactId>utils</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.5</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
@@ -164,21 +166,77 @@
 				</configuration>
 			</plugin>
 			<!--
+			<plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-gpg-plugin</artifactId><version>1.5</version><executions><execution><id>sign-artifacts</id><phase>verify</phase><goals><goal>sign</goal></goals></execution></executions></plugin>
+			 -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
+						<id>l4j-clui</id>
+						<phase>package</phase>
 						<goals>
-							<goal>sign</goal>
+							<goal>launch4j</goal>
 						</goals>
+						<configuration>
+							<headerType>console</headerType>
+							<outfile>target/algonquin-cli.exe</outfile>
+							<jar>target/algonquin-0.3.3.jar</jar>
+							<errTitle>AlgonquinTTS</errTitle>
+							<classPath>
+								<mainClass>net.oijon.algonquin.console.Console</mainClass>
+								<addDependencies>true</addDependencies>
+							</classPath>
+							<jre>
+								<path>../jre</path>
+								<minVersion>11.0</minVersion>
+							</jre>
+							<versionInfo>
+								<fileVersion>0.3.3.0</fileVersion>
+								<txtFileVersion>AlgonquinTTS - v0.3.3</txtFileVersion>
+								<fileDescription>CLI version of AlgonquinTTS</fileDescription>
+								<copyright>oijon.net, under Apache License v2.0</copyright>
+								<productVersion>0.3.3.0</productVersion>
+								<txtProductVersion>AlgonquinTTS - v0.3.3</txtProductVersion>
+								<productName>AlgonquinTTS</productName>
+								<internalName>algonquin</internalName>
+								<originalFilename>algonquin-cli.exe</originalFilename>
+							</versionInfo>
+						</configuration>
+					</execution>
+					<execution>
+						<id>l4j-gui</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<headerType>gui</headerType>
+							<outfile>target/algonquin.exe</outfile>
+							<jar>target/algonquin-0.3.3.jar</jar>
+							<errTitle>AlgonquinTTS</errTitle>
+							<classPath>
+								<mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
+							</classPath>
+							<jre>
+								<path>../jre</path>
+								<minVersion>11.0</minVersion>
+							</jre>
+							<versionInfo>
+								<fileVersion>0.3.3.0</fileVersion>
+								<txtFileVersion>AlgonquinTTS - v0.3.3</txtFileVersion>
+								<fileDescription>An IPA text-to-speech program.</fileDescription>
+								<copyright>oijon.net, under Apache License v2.0</copyright>
+								<productVersion>0.3.3.0</productVersion>
+								<txtProductVersion>AlgonquinTTS - v0.3.3</txtProductVersion>
+								<productName>AlgonquinTTS</productName>
+								<internalName>algonquin</internalName>
+								<originalFilename>algonquin.exe</originalFilename>
+							</versionInfo>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			 -->
 		</plugins>
 	</build>
 	<licenses>
@@ -194,8 +252,8 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git://github.com/N3ther/Algonquin-TTS.git</connection>
-		<developerConnection>scm:git:ssh://github.com:N3ther/Algonquin-TTS.git</developerConnection>
-		<url>http://github.com/N3ther/Algonquin-TTS/tree/master</url>
+		<connection>scm:git:git://github.com/alexdcramer/Algonquin-TTS.git</connection>
+		<developerConnection>scm:git:ssh://github.com:alexdcramer/Algonquin-TTS.git</developerConnection>
+		<url>http://github.com/alexdcramer/Algonquin-TTS/tree/master</url>
 	</scm>
 </project>
