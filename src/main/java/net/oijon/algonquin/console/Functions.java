@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import net.oijon.algonquin.gui.Launcher;
-import net.oijon.algonquin.tts.IPA;
+import net.oijon.algonquin.tts.glue.GlueSound;
 
 // Meant to keep GUI and console actions the same
 // TODO: get rid of this class and move all actions to the various commands, as the GUI is now
@@ -110,7 +110,9 @@ public class Functions {
 	}
 	
 	public static void pronounce(String packname, String input, String outputFile) {
-		IPA.createAudio(IPA.getFileNames(input), outputFile, packname);
+		GlueSound gs = new GlueSound(packname);
+		gs.createAudio(input, outputFile);
+		System.gc();
 	}
 	
 	public static String selectPack(String packname) {

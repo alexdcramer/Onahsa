@@ -1,8 +1,10 @@
 package net.oijon.algonquin.gui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 import net.oijon.algonquin.console.Console;
+import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.trm.TRM;
 
 /**
@@ -26,7 +28,15 @@ public class Launcher {
 			e.printStackTrace();
 		}
 		
-		//Functions.copyFiles();
+		try {
+			Functions.copyFiles();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (Arrays.stream(args).anyMatch("-c"::equals)) {
 			Console.run();

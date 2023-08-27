@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -269,12 +270,13 @@ public class GUI extends Application {
 		Button pronounceButton = new Button("Pronounce!");
 		pronounceButton.setDefaultButton(true);
 		
+		ExecutorService es = Executors.newFixedThreadPool(1);
+		
 		pronounceButton.setOnAction(new EventHandler<ActionEvent>() {
-
 	        @Override
 	        public void handle(ActionEvent event) {
 	        	if (synthType.getValue().equals("Classic")) {
-	        		Thread t1 = new Thread(new Runnable() {
+	        		es.submit(new Runnable() {
 	        		    @Override
 	        		    public void run() {
 	        		    	Console.parse("setname " + fileNameField.getText());
@@ -282,8 +284,7 @@ public class GUI extends Application {
 	        		    	log.debug(insert.getText());
 	        		    }
 	        		});
-	        		t1.setDaemon(true);
-	        		t1.start();
+	        		
 	        	} else if (synthType.getValue().equals("TRM (highly experimental)")) {
 	        		Thread t1 = new Thread(new Runnable() {
 	        		    @Override
@@ -296,6 +297,7 @@ public class GUI extends Application {
 	        	} else {
 	        		log.err("Unsupported synthesis type \'" + synthType.getValue() + "\'.");
 	        	}
+	        	System.gc();
 	        }
 	    });
 		
