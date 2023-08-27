@@ -1,0 +1,43 @@
+===PHOSYS Start===
+===Tablelist Start===
+tablelistName:IPA
+diacriticList:̥,̬,ʰ,̹,̜,̟,̠,̈,̽,̩,̯,˞,̤,̰,̼,ʷ,ʲ,ˠ,ˤ,̴,̝,̞,̘,̙,̪,̺,̻,̃,ⁿ,ˡ,̚,̋,́,̄,̀,̏,̌,̂,᷄,᷅,᷈,ˈ,ˌ,ː,ˑ,̆,|,‖,.,‿,͡
+===PhonoTable Start===
+tableName:IPA Consonants
+columnNames:Bilabial,Labiodental,Dental,Alveolar,Postalveolar,Retroflex,Palatal,Velar,Uvular,Pharyngeal,Glottal
+soundsPerCell:2
+rowNames:Plosive,Nasal,Trill,Tap or Flap,Fricative,Lateral Fricative,Approximant,Lateral Approximant
+:pb****td**ʈɖcɟkɡqɢ*#ʔ#
+:*m*ɱ***n***ɳ*ɲ*ŋ*ɴ####
+:*ʙ*****r******##*ʀ**##
+:***ⱱ***ɾ***ɽ**##****##
+:ɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦ
+:####**ɬɮ**********####
+:***ʋ***ɹ***ɻ*j*ɰ****##
+:####***l***ɭ*ʎ*ʟ**####
+===PhonoTable End===
+===PhonoTable Start===
+tableName:IPA Vowels
+columnNames:Front,Central,Back
+soundsPerCell:2
+rowNames:Close,Near Close,Close Mid,Mid,Open Mid,Close Open,Other
+:iyɨʉɯu
+:ɪʏ***ʊ
+:eøɘɵɤo
+:**ə***
+:ɛœɜɞʌɔ
+:æ*ɐ***
+:aɶ**ɑɒ
+===PhonoTable End===
+===PhonoTable Start===
+tableName:IPA Non-Pulmonics
+columnNames:No column names
+soundsPerCell:1
+rowNames:Click,Implosive,Other,.encodingAnomoly
+:ʘǀǃǂǁ#####
+:ɓɗʄɠʛ#####
+:ʍwɥʜʢʡɕʑɺɧ
+:gɚ########
+===PhonoTable End===
+===Tablelist End===
+===PHOSYS End===

@@ -20,6 +20,8 @@ import net.oijon.algonquin.gui.Launcher;
 import net.oijon.algonquin.tts.IPA;
 
 // Meant to keep GUI and console actions the same
+// TODO: get rid of this class and move all actions to the various commands, as the GUI is now
+// just using the commands :)
 public class Functions {
 
 	public static void copyFiles() throws URISyntaxException, IOException  {
@@ -107,8 +109,6 @@ public class Functions {
 		return packnames;
 	}
 	
-	//Returns a string so that any errors can be printed in the console
-	//Will be changed in the future
 	public static void pronounce(String packname, String input, String outputFile) {
 		IPA.createAudio(IPA.getFileNames(input), outputFile, packname);
 	}

@@ -279,6 +279,7 @@ public class GUI extends Application {
 	        		    public void run() {
 	        		    	Console.parse("setname " + fileNameField.getText());
 	        		    	Console.parse("pronounce " + insert.getText());
+	        		    	log.debug(insert.getText());
 	        		    }
 	        		});
 	        		t1.setDaemon(true);
