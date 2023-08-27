@@ -181,7 +181,7 @@
 						<configuration>
 							<headerType>console</headerType>
 							<outfile>target/algonquin-cli.exe</outfile>
-							<jar>target/algonquin-0.3.3.jar</jar>
+							<jar>target/algonquin-0.4.0.jar</jar>
 							<errTitle>AlgonquinTTS</errTitle>
 							<classPath>
 								<mainClass>net.oijon.algonquin.console.Console</mainClass>
@@ -192,12 +192,12 @@
 								<minVersion>11.0</minVersion>
 							</jre>
 							<versionInfo>
-								<fileVersion>0.3.3.0</fileVersion>
-								<txtFileVersion>AlgonquinTTS - v0.3.3</txtFileVersion>
+								<fileVersion>0.4.0.0</fileVersion>
+								<txtFileVersion>AlgonquinTTS - v0.4.0</txtFileVersion>
 								<fileDescription>CLI version of AlgonquinTTS</fileDescription>
 								<copyright>oijon.net, under Apache License v2.0</copyright>
-								<productVersion>0.3.3.0</productVersion>
-								<txtProductVersion>AlgonquinTTS - v0.3.3</txtProductVersion>
+								<productVersion>0.4.0.0</productVersion>
+								<txtProductVersion>AlgonquinTTS - v0.4.0</txtProductVersion>
 								<productName>AlgonquinTTS</productName>
 								<internalName>algonquin</internalName>
 								<originalFilename>algonquin-cli.exe</originalFilename>
@@ -213,7 +213,7 @@
 						<configuration>
 							<headerType>gui</headerType>
 							<outfile>target/algonquin.exe</outfile>
-							<jar>target/algonquin-0.3.3.jar</jar>
+							<jar>target/algonquin-0.4.0.jar</jar>
 							<errTitle>AlgonquinTTS</errTitle>
 							<classPath>
 								<mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
@@ -223,12 +223,12 @@
 								<minVersion>11.0</minVersion>
 							</jre>
 							<versionInfo>
-								<fileVersion>0.3.3.0</fileVersion>
-								<txtFileVersion>AlgonquinTTS - v0.3.3</txtFileVersion>
+								<fileVersion>0.4.0.0</fileVersion>
+								<txtFileVersion>AlgonquinTTS - v0.4.0</txtFileVersion>
 								<fileDescription>An IPA text-to-speech program.</fileDescription>
 								<copyright>oijon.net, under Apache License v2.0</copyright>
-								<productVersion>0.3.3.0</productVersion>
-								<txtProductVersion>AlgonquinTTS - v0.3.3</txtProductVersion>
+								<productVersion>0.4.0.0</productVersion>
+								<txtProductVersion>AlgonquinTTS - v0.4.0</txtProductVersion>
 								<productName>AlgonquinTTS</productName>
 								<internalName>algonquin</internalName>
 								<originalFilename>algonquin.exe</originalFilename>
