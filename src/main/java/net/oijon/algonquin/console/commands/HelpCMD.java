@@ -3,7 +3,7 @@ package net.oijon.algonquin.console.commands;
 import java.util.ArrayList;
 
 import net.oijon.algonquin.console.Console;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 public class HelpCMD extends Command {
 

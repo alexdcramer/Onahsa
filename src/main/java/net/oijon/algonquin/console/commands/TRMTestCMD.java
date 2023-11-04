@@ -10,7 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import net.oijon.algonquin.tts.trm.TRM;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 public class TRMTestCMD extends Command {
 

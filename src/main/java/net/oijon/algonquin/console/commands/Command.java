@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import net.oijon.algonquin.console.Console;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 public abstract class Command {
 

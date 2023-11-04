@@ -11,7 +11,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
 import net.oijon.algonquin.console.Console;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 /**
  * @author N3ther

@@ -1,7 +1,7 @@
 package net.oijon.algonquin.console.commands;
 
 import net.oijon.algonquin.console.Console;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 public class CurrentPackCMD extends Command {
 

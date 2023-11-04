@@ -18,9 +18,9 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
 import net.oijon.algonquin.console.Console;
-import net.oijon.utils.logger.Log;
-import net.oijon.utils.parser.Parser;
-import net.oijon.utils.parser.data.PhonoSystem;
+import net.oijon.olog.Log;
+import net.oijon.oling.Parser;
+import net.oijon.oling.datatypes.PhonoSystem;
 
 public class GlueSound {
 
@@ -175,43 +175,32 @@ public class GlueSound {
 		return ps;
 	}
 	
-	private void pronounce(String name) {
-		
-		final int BUFFER_SIZE = 128000;
-		AudioInputStream audioStream;
-		SourceDataLine sourceLine;
-		
+	private void pronounce(String name) {		
+		final int BUFFER_SIZE = 64;
 		File soundFile = new File(System.getProperty("user.home") + 
 				"/AlgonquinTTS/" + name + ".wav");
 		try {
-            audioStream = AudioSystem.getAudioInputStream(soundFile);
+			AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             AudioFormat audioFormat = audioStream.getFormat();
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+            SourceDataLine sourceLine = (SourceDataLine) AudioSystem.getLine(info);
             sourceLine.open(audioFormat);
-            
             sourceLine.start();
-
-            int nBytesRead = 0;
-            // this one in particular likes to cause memory leaks
-            byte[] abData = new byte[BUFFER_SIZE];
-            while (nBytesRead != -1) {
+            
+            int bytesRead = 0;
+            while (bytesRead != -1) {
+            	byte[] abData = new byte[BUFFER_SIZE];
                 try {
-                    nBytesRead = audioStream.read(abData, 0, abData.length);
+                    bytesRead = audioStream.read(abData, 0, abData.length);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if (nBytesRead >= 0) {
-                    sourceLine.write(abData, 0, nBytesRead);
+                if (bytesRead >= 0) {
+                    sourceLine.write(abData, 0, bytesRead);
                 }
             }
-
-            // one of these should help fix the memory leak
             sourceLine.drain();
             sourceLine.close();
-            audioStream.close();
-            abData = null;
-            System.gc();
         } catch (Exception e){
             e.printStackTrace();
         }

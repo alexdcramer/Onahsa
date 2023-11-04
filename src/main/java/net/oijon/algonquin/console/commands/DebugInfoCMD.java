@@ -2,8 +2,8 @@ package net.oijon.algonquin.console.commands;
 
 import java.util.Properties;
 
-import net.oijon.utils.info.Info;
-import net.oijon.utils.logger.Log;
+import net.oijon.oling.info.Info;
+import net.oijon.olog.Log;
 
 public class DebugInfoCMD extends Command {
 

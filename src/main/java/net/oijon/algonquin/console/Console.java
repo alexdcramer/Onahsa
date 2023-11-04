@@ -19,7 +19,7 @@ import net.oijon.algonquin.console.commands.SetNameCMD;
 import net.oijon.algonquin.console.commands.SetPackCMD;
 import net.oijon.algonquin.console.commands.SetPathCMD;
 import net.oijon.algonquin.console.commands.TRMTestCMD;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 public class Console {
 	

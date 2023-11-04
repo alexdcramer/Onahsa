@@ -53,7 +53,7 @@ import javafx.stage.WindowEvent;
 import net.oijon.algonquin.console.Console;
 import net.oijon.algonquin.console.Functions;
 import net.oijon.algonquin.tts.trm.TRM;
-import net.oijon.utils.logger.Log;
+import net.oijon.olog.Log;
 
 
 /**
