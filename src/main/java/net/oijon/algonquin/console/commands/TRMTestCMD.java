@@ -53,6 +53,9 @@ public class TRMTestCMD extends Command {
 		    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
 		    {
 		    }
+		    clip.drain();
+		    clip.stop();
+		    clip.flush();
 		  }
 		  catch (UnsupportedAudioFileException e) {
 			log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString());
@@ -87,6 +90,9 @@ public class TRMTestCMD extends Command {
 		    while(clip.getMicrosecondLength() != clip.getMicrosecondPosition())
 		    {
 		    }
+		    clip.drain();
+		    clip.stop();
+		    clip.flush();
 		  }
 		  catch (UnsupportedAudioFileException e) {
 			  log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString());

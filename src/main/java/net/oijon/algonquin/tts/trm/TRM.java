@@ -68,6 +68,7 @@ public class TRM {
         ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
         AudioInputStream audioInputStream = new AudioInputStream(bais, format, buffer.length);
         AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
+        
         audioInputStream.close();
 	}
 	
@@ -231,8 +232,7 @@ public class TRM {
         ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer);
         AudioInputStream audioInputStream = new AudioInputStream(bais, format, buffer.length);
         AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out);
-        audioInputStream.close();
-		
+        
 	}
 	/**
 	 * Do not use.

@@ -519,6 +519,7 @@ public class GUI extends Application {
 				double scrollTop = console.getScrollTop();
 				console.setText(readLog());
 				console.setScrollTop(scrollTop);
+				console.positionCaret(console.getText().length());
 			});
 		};
 		scheduler.scheduleAtFixedRate(updater, 10, 10, TimeUnit.MILLISECONDS);
