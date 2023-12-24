@@ -175,8 +175,8 @@ public class GlueSound {
 		return ps;
 	}
 	
-	private void pronounce(String name) {		
-		final int BUFFER_SIZE = 64;
+	private void pronounce(String name) {	
+		final int BUFFER_SIZE = 128000;
 		File soundFile = new File(System.getProperty("user.home") + 
 				"/AlgonquinTTS/" + name + ".wav");
 		try {
@@ -200,6 +200,8 @@ public class GlueSound {
                 }
             }
             sourceLine.drain();
+            sourceLine.stop();
+            sourceLine.flush();
             sourceLine.close();
         } catch (Exception e){
             e.printStackTrace();
