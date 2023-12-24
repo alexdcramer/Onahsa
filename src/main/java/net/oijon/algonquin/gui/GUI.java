@@ -3,19 +3,11 @@ package net.oijon.algonquin.gui;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -48,11 +40,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import net.oijon.algonquin.console.Console;
 import net.oijon.algonquin.console.Functions;
-import net.oijon.algonquin.tts.trm.TRM;
 import net.oijon.olog.Log;
 
 
@@ -77,6 +69,10 @@ public class GUI extends Application {
 		
 		updateLog();
 		console.setPadding(Insets.EMPTY);
+		
+		//fonts
+		Font mono = Font.loadFont(GUI.class.getResourceAsStream("/font/NotoSansMono-Regular.ttf"), 10);
+		console.setFont(mono);
 		
 		//backgrounds
 		BackgroundFill backgroundFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
