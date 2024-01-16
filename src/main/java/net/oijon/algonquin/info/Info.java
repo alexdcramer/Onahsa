@@ -9,7 +9,7 @@ package net.oijon.algonquin.info;
  */
 public class Info {
 
-	private static String versionNum = "0.4.2";
+	private static String versionNum = "0.4.3";
 	private static String fullVersion = "AlgonquinTTS - v" + versionNum;
 	
 	/**

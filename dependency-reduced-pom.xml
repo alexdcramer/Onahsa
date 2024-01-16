@@ -4,7 +4,7 @@
   <groupId>net.oijon</groupId>
   <artifactId>algonquin</artifactId>
   <name>algonquin</name>
-  <version>0.4.1</version>
+  <version>0.4.3</version>
   <description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
   <url>http://github.com/alexdcramer/Algonquin-TTS</url>
   <developers>
@@ -150,6 +150,10 @@
                 <internalName>algonquin</internalName>
                 <originalFilename>algonquin-cli.exe</originalFilename>
               </versionInfo>
+              <messages>
+                <jreVersionErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreVersionErr>
+                <jreNotFoundErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreNotFoundErr>
+              </messages>
             </configuration>
           </execution>
           <execution>
@@ -181,6 +185,10 @@
                 <internalName>algonquin</internalName>
                 <originalFilename>algonquin.exe</originalFilename>
               </versionInfo>
+              <messages>
+                <jreVersionErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreVersionErr>
+                <jreNotFoundErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreNotFoundErr>
+              </messages>
             </configuration>
           </execution>
         </executions>
