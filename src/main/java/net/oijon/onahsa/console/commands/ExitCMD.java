@@ -1,14 +1,14 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Console;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
 
 public class ExitCMD extends Command {
 
 	public ExitCMD(Log log) {
 		super(log);
 		name = "exit";
-		description = "Exits the current session of AlgonquinTTS.";
+		description = "Exits the current session of Onahsa.";
 	}
 
 	@Override

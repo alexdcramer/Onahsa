@@ -1,4 +1,4 @@
-package net.oijon.algonquin.console;
+package net.oijon.onahsa.console;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,31 +16,43 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
-import net.oijon.algonquin.gui.Launcher;
-import net.oijon.algonquin.tts.glue.GlueSound;
+import net.oijon.onahsa.gui.Launcher;
+import net.oijon.onahsa.tts.glue.GlueSound;
 
 // Meant to keep GUI and console actions the same
 // TODO: get rid of this class and move all actions to the various commands, as the GUI is now
 // just using the commands :)
 public class Functions {
 
+	public static void checkLegacyFiles() {
+		File legacyDir = new File(System.getProperty("user.home") + "/AlgonquinTTS");
+		File newDir = new File(System.getProperty("user.home") + "/Onahsa");
+		if (legacyDir.exists()) {
+			System.out.println("Copying old files over to new directory!");
+			legacyDir.renameTo(newDir);
+		}
+		if (legacyDir.exists() | !newDir.exists()) {
+			System.out.println("Copy over did not work!");
+		}
+	}
+	
 	public static void copyFiles() throws URISyntaxException, IOException  {
-		//Create AlgonquinTTS directory
+		//Create Onahsa directory
 		//Uses a lot of ifs, but should be ok...
-		if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-        	System.out.println("Created AlgonquinTTS dir");
+		if (new File(System.getProperty("user.home") + "/Onahsa").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa").mkdir();
+        	System.out.println("Created Onahsa dir");
         }
-		if (new File(System.getProperty("user.home") + "/AlgonquinTTS/packs").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS/packs").mkdir();
+		if (new File(System.getProperty("user.home") + "/Onahsa/packs").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa/packs").mkdir();
         	System.out.println("Created packs dir");
         }
-		if (new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/classic").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/classic").mkdir();
+		if (new File(System.getProperty("user.home") + "/Onahsa/packs/classic").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa/packs/classic").mkdir();
         	System.out.println("Created classic pack dir");
         }
-		if (new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/newclassic").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/newclassic").mkdir();
+		if (new File(System.getProperty("user.home") + "/Onahsa/packs/newclassic").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa/packs/newclassic").mkdir();
         	System.out.println("Created newclassic pack dir");
         }
 		//Copies resources over
@@ -60,7 +72,7 @@ public class Functions {
 	        try {
 	        	Path filePath = it.next();
 	        	String idStr = filePath.getFileName().toString();
-	        	File newFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/classic/" + idStr);
+	        	File newFile = new File(System.getProperty("user.home") + "/Onahsa/packs/classic/" + idStr);
 	        	Files.copy(filePath, new FileOutputStream(newFile));
 	        } catch (NoSuchElementException e) {
 	        	e.printStackTrace();
@@ -89,7 +101,7 @@ public class Functions {
         	try {
 	        	Path filePath = it2.next();
 	        	String idStr = filePath.getFileName().toString();
-	        	File newFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/newclassic/" + idStr);
+	        	File newFile = new File(System.getProperty("user.home") + "/Onahsa/packs/newclassic/" + idStr);
 	        	Files.copy(filePath, new FileOutputStream(newFile));
         	} catch (NoSuchElementException e) {
 	        	e.printStackTrace();
@@ -104,7 +116,7 @@ public class Functions {
 	}
 
 	public static String[] getPacks() {
-		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
+		File packsDirFile = new File(System.getProperty("user.home") + "/Onahsa/packs/");
 		String[] packnames = packsDirFile.list();
 		return packnames;
 	}

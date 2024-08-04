@@ -1,4 +1,4 @@
-package net.oijon.algonquin.gui;
+package net.oijon.onahsa.gui;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,9 +43,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import net.oijon.algonquin.console.Console;
-import net.oijon.algonquin.console.Functions;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
+import net.oijon.onahsa.console.Functions;
 
 
 /**
@@ -93,7 +93,7 @@ public class GUI extends Application {
 		final ComboBox synthType = new ComboBox(options);
 		synthType.setValue("Classic");
 		
-		Background speakers = new Background(new BackgroundImage(new Image(GUI.class.getResourceAsStream("/img/speaker.png")),
+		Background sheetMetal = new Background(new BackgroundImage(new Image(GUI.class.getResourceAsStream("/img/sheet-metal.png")),
 				BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
     	        BackgroundSize.DEFAULT));
 		
@@ -130,7 +130,7 @@ public class GUI extends Application {
 		insertIPA.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/insert-ipa.png"))));
 		insertIPA.setBackground(null);
 		insertIPA.setPadding(new Insets(5, 0, 0, 0));
-		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu ælgonkwɪn tɛkst tu spitʃ");
+		TextArea insert = new TextArea("hɛloʊ ænd wɛlkəm tu oʔnæhsæʔ tɛkst tu spitʃ");
 		
 		Button fileNameLabel = new Button();
 		fileNameLabel.setGraphic(new ImageView(new Image(GUI.class.getResourceAsStream("/img/file-name.png"))));
@@ -144,7 +144,7 @@ public class GUI extends Application {
 		packLabel.setPadding(new Insets(5, 0, 0, 0));
 		
 		
-		File packsDirFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/");
+		File packsDirFile = new File(System.getProperty("user.home") + "/Onahsa/packs/");
 		String[] packnames = packsDirFile.list();
 		
 		CheckBox logDebug = new CheckBox("Show debug messages");
@@ -177,7 +177,7 @@ public class GUI extends Application {
             Image icon = new Image(GUI.class.getResourceAsStream("/img/no-image.png"));
         	ImageView iconView = new ImageView(icon);
             
-        	File iconFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packnames[i] + "/icon.png");
+        	File iconFile = new File(System.getProperty("user.home") + "/Onahsa/packs/" + packnames[i] + "/icon.png");
         	
         	if (iconFile.exists()) {
         		try {
@@ -225,7 +225,7 @@ public class GUI extends Application {
 		            Image icon = new Image(GUI.class.getResourceAsStream("/img/no-image.png"));
 		        	ImageView iconView = new ImageView(icon);
 		            
-		        	File iconFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packnames[i] + "/icon.png");
+		        	File iconFile = new File(System.getProperty("user.home") + "/Onahsa/packs/" + packnames[i] + "/icon.png");
 		        	
 		        	if (iconFile.exists()) {
 		        		try {
@@ -464,14 +464,14 @@ public class GUI extends Application {
 		pronounceBox.getChildren().addAll(pronounceGrid);
 		
 		
-		mainBox.setBackground(speakers);
+		mainBox.setBackground(sheetMetal);
 		mainBox.getChildren().addAll(pronounceBox, logDebug, consoleLabel, console, inputBox);
 		mainBox.setVgrow(console, Priority.ALWAYS);
 		
 		Scene scene = new Scene(mainBox, 750, 600);
-		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/algonquin-logo.png")));
+		primaryStage.getIcons().add(new Image(GUI.class.getResourceAsStream("/img/onahsa-logo.png")));
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Algonquin Text-to-Speach");
+		primaryStage.setTitle("Onahsa Text-to-Speach");
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
 			@Override

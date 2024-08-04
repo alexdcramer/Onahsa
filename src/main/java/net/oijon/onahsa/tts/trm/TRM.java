@@ -1,4 +1,4 @@
-package net.oijon.algonquin.tts.trm;
+package net.oijon.onahsa.tts.trm;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -10,8 +10,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-import net.oijon.algonquin.console.Console;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
 
 /**
  * @author N3ther
@@ -52,11 +52,11 @@ public class TRM {
         }
 
         
-        if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
+        if (new File(System.getProperty("user.home") + "/Onahsa").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa").mkdir();
         }
         
-        File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/out10.wav");
+        File out = new File(System.getProperty("user.home") + "/Onahsa/out10.wav");
 
         final boolean bigEndian = false;
         final boolean signed = true;
@@ -138,13 +138,13 @@ public class TRM {
         }
 
         
-        if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-        	log.info("Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS");
+        if (new File(System.getProperty("user.home") + "/Onahsa").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa").mkdir();
+        	log.info("Created new directory in " + System.getProperty("user.home") + "/Onahsa");
         }
         
-        File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav");
-        log.info("Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav");
+        File out = new File(System.getProperty("user.home") + "/Onahsa/testwave.wav");
+        log.info("Created new file in " + System.getProperty("user.home") + "/Onahsa/testwave.wav");
 
         final boolean bigEndian = false;
         final boolean signed = true;
@@ -202,13 +202,13 @@ public class TRM {
         }
 
         
-        if (new File(System.getProperty("user.home") + "/AlgonquinTTS").exists() == false) {
-        	new File(System.getProperty("user.home") + "/AlgonquinTTS").mkdir();
-        	log.info("Created new directory in " + System.getProperty("user.home") + "/AlgonquinTTS");
+        if (new File(System.getProperty("user.home") + "/Onahsa").exists() == false) {
+        	new File(System.getProperty("user.home") + "/Onahsa").mkdir();
+        	log.info("Created new directory in " + System.getProperty("user.home") + "/Onahsa");
         }
         
-        File out = new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav");
-        log.info("Created new file in " + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav");
+        File out = new File(System.getProperty("user.home") + "/Onahsa/test17cm.wav");
+        log.info("Created new file in " + System.getProperty("user.home") + "/Onahsa/test17cm.wav");
 
         final boolean bigEndian = false;
         final boolean signed = true;

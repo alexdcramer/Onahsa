@@ -1,4 +1,4 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import net.oijon.algonquin.console.Console;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
 
 public abstract class Command {
 

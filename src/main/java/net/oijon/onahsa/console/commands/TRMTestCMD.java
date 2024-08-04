@@ -1,4 +1,4 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import net.oijon.algonquin.tts.trm.TRM;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.tts.trm.TRM;
 
 public class TRMTestCMD extends Command {
 
@@ -45,7 +45,7 @@ public class TRMTestCMD extends Command {
 		try {
 		    Clip clip = AudioSystem.getClip();
 		    AudioInputStream ais = AudioSystem.getAudioInputStream(
-		    		new File(System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav").getAbsoluteFile()
+		    		new File(System.getProperty("user.home") + "/Onahsa/testwave.wav").getAbsoluteFile()
 		    		);
 		    clip.open(ais);
 		    clip.start();
@@ -58,13 +58,13 @@ public class TRMTestCMD extends Command {
 		    clip.flush();
 		  }
 		  catch (UnsupportedAudioFileException e) {
-			log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString());
+			log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/Onahsa/testwave.wav" + "' - " + e.toString());
 		  }
 		  catch (LineUnavailableException e) {
-			log.err("Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString());
+			log.err("Could not play '" + System.getProperty("user.home") + "/Onahsa/testwave.wav" + "' - " + e.toString());
 		  }
 		  catch (IOException e) {
-			log.err("Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/testwave.wav" + "' - " + e.toString());
+			log.err("Could not play '" + System.getProperty("user.home") + "/Onahsa/testwave.wav" + "' - " + e.toString());
 			e.printStackTrace();
 		  }
 		log.info("If all went to plan, and you did not see any exceptions, you just heard the beep that will form the voicebox's raw output!");
@@ -82,7 +82,7 @@ public class TRMTestCMD extends Command {
 		try {
 		    Clip clip = AudioSystem.getClip();
 		    AudioInputStream ais = AudioSystem.getAudioInputStream(
-		    		new File(System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav").getAbsoluteFile()
+		    		new File(System.getProperty("user.home") + "/Onahsa/test17cm.wav").getAbsoluteFile()
 		    		);
 		    clip.open(ais);
 		    clip.start();
@@ -95,13 +95,13 @@ public class TRMTestCMD extends Command {
 		    clip.flush();
 		  }
 		  catch (UnsupportedAudioFileException e) {
-			  log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString());
+			  log.err("Unsupported audio format: '" + System.getProperty("user.home") + "/Onahsa/test17cm.wav" + "' - " + e.toString());
 		  }
 		  catch (LineUnavailableException e) {
-			  log.err("Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString());
+			  log.err("Could not play '" + System.getProperty("user.home") + "/Onahsa/test17cm.wav" + "' - " + e.toString());
 		  }
 		  catch (IOException e) {
-			  log.err("Could not play '" + System.getProperty("user.home") + "/AlgonquinTTS/test17cm.wav" + "' - " + e.toString());
+			  log.err("Could not play '" + System.getProperty("user.home") + "/Onahsa/test17cm.wav" + "' - " + e.toString());
 			  e.printStackTrace();
 		  }
 		log.info("Did the sound that just played sound like a schwa? If not, something isn't working...");

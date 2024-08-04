@@ -1,4 +1,4 @@
-package net.oijon.algonquin.tts.glue;
+package net.oijon.onahsa.tts.glue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +17,14 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
-import net.oijon.algonquin.console.Console;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
 import net.oijon.oling.Parser;
 import net.oijon.oling.datatypes.PhonoSystem;
 
 public class GlueSound {
+	
+	// TODO: make pack file configurable and not hard-coded
 
 	private static Log log = Console.getLog();
 	
@@ -90,7 +92,7 @@ public class GlueSound {
 		try {
 			for (int i = 0; i < fileNames.length; i++) {
 				URL url;
-				File clipFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + fileNames[i] + ".wav");
+				File clipFile = new File(System.getProperty("user.home") + "/Onahsa/packs/" + packName + "/" + fileNames[i] + ".wav");
 				try {
 					url = clipFile.toURI().toURL();
 					log.debug("URL found for clip: " + url);
@@ -107,7 +109,7 @@ public class GlueSound {
 								for (int l = 0; l < ps.getTables().get(k).size(); l++) {
 									for (int m = 0; m < ps.getTables().get(k).getRow(l).size(); m++) {
 										if (Character.toString(fileNames[i].charAt(j)).equals(ps.getTables().get(k).getRow(l).getSound(m))) {
-											File newClipFile = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + Character.toString(fileNames[i].charAt(j)) + ".wav"); 
+											File newClipFile = new File(System.getProperty("user.home") + "/Onahsa/packs/" + packName + "/" + Character.toString(fileNames[i].charAt(j)) + ".wav"); 
 											if (newClipFile.exists()) {
 												foundValid = true;
 												log.warn("Invalid sound " + fileNames[i] + " detected! This usually means the sound hasn't been added yet. Reverting to " + fileNames[i].charAt(j));
@@ -129,7 +131,7 @@ public class GlueSound {
 					
 				}
 				AudioInputStream ais = AudioSystem.getAudioInputStream(new File(
-						System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName + "/" + fileNames[i] + ".wav").getAbsoluteFile());
+						System.getProperty("user.home") + "/Onahsa/packs/" + packName + "/" + fileNames[i] + ".wav").getAbsoluteFile());
 				allStreams[i] = ais;
 			}
 			for (int i = 1; i < allStreams.length; i++) {
@@ -141,9 +143,9 @@ public class GlueSound {
 			}
 				
 			AudioSystem.write(allStreams[0], AudioFileFormat.Type.WAVE, new File(System.getProperty("user.home") + 
-					"/AlgonquinTTS/" + name + ".wav"));
+					"/Onahsa/" + name + ".wav"));
 			log.info("Created file " + System.getProperty("user.home") + 
-					"/AlgonquinTTS/" + name + ".wav");
+					"/Onahsa/" + name + ".wav");
 			
 			this.pronounce(name);
 			
@@ -155,7 +157,7 @@ public class GlueSound {
 	}
 	
 	private PhonoSystem loadPack() throws Exception {
-		File packFolder = new File(System.getProperty("user.home") + "/AlgonquinTTS/packs/" + packName);
+		File packFolder = new File(System.getProperty("user.home") + "/Onahsa/packs/" + packName);
 		File[] files = packFolder.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		        return name.toLowerCase().endsWith(".phosys");
@@ -178,7 +180,7 @@ public class GlueSound {
 	private void pronounce(String name) {	
 		final int BUFFER_SIZE = 128000;
 		File soundFile = new File(System.getProperty("user.home") + 
-				"/AlgonquinTTS/" + name + ".wav");
+				"/Onahsa/" + name + ".wav");
 		try {
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
             AudioFormat audioFormat = audioStream.getFormat();

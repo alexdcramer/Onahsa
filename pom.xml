@@ -4,12 +4,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.oijon</groupId>
-	<artifactId>algonquin</artifactId>
-	<version>0.4.3</version>
+	<artifactId>onahsa</artifactId>
+	<version>0.4.4</version>
 	<packaging>jar</packaging>
-	<name>algonquin</name>
+	<name>onahsa</name>
 	<description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
-	<url>http://github.com/alexdcramer/Algonquin-TTS</url>
+	<url>http://github.com/alexdcramer/Onahsa</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,30 +26,30 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			<version>19-ea+5</version>
+			<version>11</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			<version>19-ea+5</version>
+			<version>11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			<version>19-ea+5</version>
+			<version>11</version>
 			<classifier>win</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			<version>19-ea+5</version>
+			<version>11</version>
 			<classifier>mac</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>19-ea+5</version>
+			<version>11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>

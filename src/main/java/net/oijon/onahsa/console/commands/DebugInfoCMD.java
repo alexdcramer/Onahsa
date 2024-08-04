@@ -1,4 +1,4 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
 import java.util.Properties;
 
@@ -16,7 +16,7 @@ public class DebugInfoCMD extends Command {
 	@Override
 	public void run(String[] args) {
 		log.info(Info.getVersion());
-		log.info(net.oijon.algonquin.info.Info.getVersion());
+		log.info(net.oijon.onahsa.info.Info.getVersion());
 		Properties properties = System.getProperties();
 		String rawProperties = properties.toString();
 		String[] propArray = rawProperties.substring(0, rawProperties.length() - 1).split(", ");

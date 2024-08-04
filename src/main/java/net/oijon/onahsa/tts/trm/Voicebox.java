@@ -1,4 +1,4 @@
-package net.oijon.algonquin.tts.trm;
+package net.oijon.onahsa.tts.trm;
 
 /**
  * @author N3ther

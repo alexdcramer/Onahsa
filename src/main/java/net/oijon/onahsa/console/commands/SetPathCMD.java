@@ -1,7 +1,7 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Console;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
 
 public class SetPathCMD extends Command {
 

@@ -1,14 +1,14 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Functions;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Functions;
 
 public class CopyFilesCMD extends Command {
 
 	public CopyFilesCMD(Log log) {
 		super(log);
 		name = "copyfiles";
-		description = "Copies needed Algonquin files to file system.";
+		description = "Copies needed Onahsa files to file system.";
 	}
 
 	@Override

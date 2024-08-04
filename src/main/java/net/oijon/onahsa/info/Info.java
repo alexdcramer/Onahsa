@@ -1,4 +1,4 @@
-package net.oijon.algonquin.info;
+package net.oijon.onahsa.info;
 
 /**
  * A class to get the version information of the current build
@@ -9,8 +9,8 @@ package net.oijon.algonquin.info;
  */
 public class Info {
 
-	private static String versionNum = "0.4.3";
-	private static String fullVersion = "AlgonquinTTS - v" + versionNum;
+	private static String versionNum = "0.4.4";
+	private static String fullVersion = "Onahsa - v" + versionNum;
 	
 	/**
 	 * Gets the current version of AlgonquinTTS, for example "AlgonquinTTS - v0.3.3"

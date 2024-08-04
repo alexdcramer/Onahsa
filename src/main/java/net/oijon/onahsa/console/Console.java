@@ -1,4 +1,4 @@
-package net.oijon.algonquin.console;
+package net.oijon.onahsa.console;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -6,29 +6,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import net.oijon.algonquin.console.commands.Command;
-import net.oijon.algonquin.console.commands.CopyFilesCMD;
-import net.oijon.algonquin.console.commands.CurrentPackCMD;
-import net.oijon.algonquin.console.commands.DebugInfoCMD;
-import net.oijon.algonquin.console.commands.ExitCMD;
-import net.oijon.algonquin.console.commands.GetOutputLocCMD;
-import net.oijon.algonquin.console.commands.HelpCMD;
-import net.oijon.algonquin.console.commands.ListPacksCMD;
-import net.oijon.algonquin.console.commands.PronounceCMD;
-import net.oijon.algonquin.console.commands.SetNameCMD;
-import net.oijon.algonquin.console.commands.SetPackCMD;
-import net.oijon.algonquin.console.commands.SetPathCMD;
-import net.oijon.algonquin.console.commands.TRMTestCMD;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.commands.Command;
+import net.oijon.onahsa.console.commands.CopyFilesCMD;
+import net.oijon.onahsa.console.commands.CurrentPackCMD;
+import net.oijon.onahsa.console.commands.DebugInfoCMD;
+import net.oijon.onahsa.console.commands.ExitCMD;
+import net.oijon.onahsa.console.commands.GetOutputLocCMD;
+import net.oijon.onahsa.console.commands.HelpCMD;
+import net.oijon.onahsa.console.commands.ListPacksCMD;
+import net.oijon.onahsa.console.commands.PronounceCMD;
+import net.oijon.onahsa.console.commands.SetNameCMD;
+import net.oijon.onahsa.console.commands.SetPackCMD;
+import net.oijon.onahsa.console.commands.SetPathCMD;
+import net.oijon.onahsa.console.commands.TRMTestCMD;
 
 public class Console {
 	
 	private static ArrayList<Command> commands = new ArrayList<Command>();
 	private static boolean loop = true;
 	private static String selectedPack = "newclassic";
-	private static String outputDir = System.getProperty("user.home") + "/AlgonquinTTS";
+	private static String outputDir = System.getProperty("user.home") + "/Onahsa";
 	private static String outputName = "output";
-	private static Log log = new Log(System.getProperty("user.home") + "/AlgonquinTTS");;
+	private static Log log = new Log(System.getProperty("user.home") + "/Onahsa");;
 	
 	public static String getTime() {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -70,7 +70,7 @@ public class Console {
 		
 		Scanner userInput = new Scanner(System.in);
 		log.info("Welcome to the AlgonquinTTS command line!");
-		log.info(net.oijon.algonquin.info.Info.getVersion());
+		log.info(net.oijon.onahsa.info.Info.getVersion());
 		log.info("Type \"help\" for a list of all commands!");
 		log.info(walls);
 		

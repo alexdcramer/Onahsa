@@ -1,11 +1,12 @@
-package net.oijon.algonquin.gui;
+package net.oijon.onahsa.gui;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.*;
-import net.oijon.algonquin.console.Console;
-import net.oijon.algonquin.console.Functions;
-import net.oijon.algonquin.tts.trm.TRM;
+
+import net.oijon.onahsa.console.Console;
+import net.oijon.onahsa.console.Functions;
+import net.oijon.onahsa.tts.trm.TRM;
 
 /**
  * @author N3ther
@@ -19,6 +20,8 @@ public class Launcher {
 	 * @param args Passed on to GUI to run.
 	 */
 	public static void main(String[] args) {
+		
+		Functions.checkLegacyFiles();
 		
 		System.out.println(Arrays.toString(args));
 		try {

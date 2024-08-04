@@ -1,7 +1,7 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Functions;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Functions;
 
 public class ListPacksCMD extends Command {
 

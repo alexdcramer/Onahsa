@@ -1,15 +1,15 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Console;
-import net.oijon.algonquin.console.Functions;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
+import net.oijon.onahsa.console.Functions;
 
 public class SetPackCMD extends Command {
 
 	public SetPackCMD(Log log) {
 		super(log);
 		name = "setpack";
-		description = "Sets the sound pack for Algonquin to use.";
+		description = "Sets the sound pack for Onahsa to use.";
 	}
 
 	@Override

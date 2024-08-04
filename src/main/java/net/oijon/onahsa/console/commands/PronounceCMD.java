@@ -1,8 +1,8 @@
-package net.oijon.algonquin.console.commands;
+package net.oijon.onahsa.console.commands;
 
-import net.oijon.algonquin.console.Console;
-import net.oijon.algonquin.console.Functions;
 import net.oijon.olog.Log;
+import net.oijon.onahsa.console.Console;
+import net.oijon.onahsa.console.Functions;
 
 public class PronounceCMD extends Command {
 
