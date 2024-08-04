@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.oijon</groupId>
-  <artifactId>algonquin</artifactId>
-  <name>algonquin</name>
-  <version>0.4.3</version>
+  <artifactId>onahsa</artifactId>
+  <name>onahsa</name>
+  <version>0.4.4</version>
   <description>A text-to-speech program meant to handle the International Phonetic Alphabet (IPA)</description>
-  <url>http://github.com/alexdcramer/Algonquin-TTS</url>
+  <url>http://github.com/alexdcramer/Onahsa</url>
   <developers>
     <developer>
       <id>N3ther</id>
@@ -205,7 +205,7 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-base</artifactId>
-      <version>19-ea+5</version>
+      <version>11</version>
       <type>pom</type>
       <scope>compile</scope>
     </dependency>

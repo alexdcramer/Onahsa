@@ -155,7 +155,7 @@
 						<configuration>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
+									<mainClass>net.oijon.onahsa.gui.Launcher</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
@@ -167,7 +167,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>0.0.8</version>
 				<configuration>
-					<mainClass>net.oijon.algonquin.gui.GUI</mainClass>
+					<mainClass>net.oijon.onahsa.gui.GUI</mainClass>
 				</configuration>
 			</plugin>
 			<!--
@@ -185,11 +185,11 @@
 						</goals>
 						<configuration>
 							<headerType>console</headerType>
-							<outfile>target/algonquin-cli.exe</outfile>
-							<jar>target/algonquin-${project.version}.jar</jar>
-							<errTitle>AlgonquinTTS</errTitle>
+							<outfile>target/onahsa-cli.exe</outfile>
+							<jar>target/onahsa-${project.version}.jar</jar>
+							<errTitle>Onahsa</errTitle>
 							<classPath>
-								<mainClass>net.oijon.algonquin.console.Console</mainClass>
+								<mainClass>net.oijon.onahsa.console.Console</mainClass>
 								<addDependencies>true</addDependencies>
 							</classPath>
 							<jre>
@@ -198,12 +198,12 @@
 							</jre>
 							<versionInfo>
 								<fileVersion>${project.version}.0</fileVersion>
-								<txtFileVersion>AlgonquinTTS - v${project.version}</txtFileVersion>
-								<fileDescription>CLI version of AlgonquinTTS</fileDescription>
+								<txtFileVersion>Onahsa - v${project.version}</txtFileVersion>
+								<fileDescription>CLI version of Onahsa</fileDescription>
 								<copyright>oijon.net, under Apache License v2.0</copyright>
 								<productVersion>${project.version}.0</productVersion>
-								<txtProductVersion>AlgonquinTTS - v${project.version}</txtProductVersion>
-								<productName>AlgonquinTTS</productName>
+								<txtProductVersion>Onahsa - v${project.version}</txtProductVersion>
+								<productName>Onahsa</productName>
 								<internalName>algonquin</internalName>
 								<originalFilename>algonquin-cli.exe</originalFilename>
 							</versionInfo>
@@ -223,7 +223,7 @@
 							<headerType>gui</headerType>
 							<outfile>target/algonquin.exe</outfile>
 							<jar>target/algonquin-${project.version}.jar</jar>
-							<errTitle>AlgonquinTTS</errTitle>
+							<errTitle>Onahsa</errTitle>
 							<classPath>
 								<mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
 							</classPath>
@@ -233,12 +233,12 @@
 							</jre>
 							<versionInfo>
 								<fileVersion>${project.version}.0</fileVersion>
-								<txtFileVersion>AlgonquinTTS - v${project.version}</txtFileVersion>
+								<txtFileVersion>Onahsa - v${project.version}</txtFileVersion>
 								<fileDescription>An IPA text-to-speech program.</fileDescription>
 								<copyright>oijon.net, under Apache License v2.0</copyright>
 								<productVersion>${project.version}.0</productVersion>
-								<txtProductVersion>AlgonquinTTS - v${project.version}</txtProductVersion>
-								<productName>AlgonquinTTS</productName>
+								<txtProductVersion>Onahsa - v${project.version}</txtProductVersion>
+								<productName>Onahsa</productName>
 								<internalName>algonquin</internalName>
 								<originalFilename>algonquin.exe</originalFilename>
 							</versionInfo>
@@ -271,8 +271,8 @@
 		</developer>
 	</developers>
 	<scm>
-		<connection>scm:git:git://github.com/alexdcramer/Algonquin-TTS.git</connection>
-		<developerConnection>scm:git:ssh://github.com:alexdcramer/Algonquin-TTS.git</developerConnection>
-		<url>http://github.com/alexdcramer/Algonquin-TTS/tree/master</url>
+		<connection>scm:git:git://github.com/alexdcramer/Onahsa.git</connection>
+		<developerConnection>scm:git:ssh://github.com:alexdcramer/Onahsa.git</developerConnection>
+		<url>http://github.com/alexdcramer/Onahsa/tree/master</url>
 	</scm>
 </project>
