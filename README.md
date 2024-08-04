@@ -1,4 +1,5 @@
-# ![Algonquin logo](https://github.com/N3ther/Algonquin-TTS/raw/main/logo.png) Algonquin-TTS
+# <img src="https://github.com/alexdcramer/Onahsa/blob/main/src/main/resources/img/onahsa-logo.png?raw=true" alt="Onahsa logo" style="width:100px;"/> Onahsa
+
 An IPA text-to-speech that is independant of language.
 
 # Frequent bugs:
