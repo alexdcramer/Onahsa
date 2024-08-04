@@ -204,8 +204,8 @@
 								<productVersion>${project.version}.0</productVersion>
 								<txtProductVersion>Onahsa - v${project.version}</txtProductVersion>
 								<productName>Onahsa</productName>
-								<internalName>algonquin</internalName>
-								<originalFilename>algonquin-cli.exe</originalFilename>
+								<internalName>onahsa</internalName>
+								<originalFilename>onahsa-cli.exe</originalFilename>
 							</versionInfo>
 							<messages>
 								<jreVersionErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreVersionErr>
@@ -221,11 +221,11 @@
 						</goals>
 						<configuration>
 							<headerType>gui</headerType>
-							<outfile>target/algonquin.exe</outfile>
-							<jar>target/algonquin-${project.version}.jar</jar>
+							<outfile>target/onahsa.exe</outfile>
+							<jar>target/onahsa-${project.version}.jar</jar>
 							<errTitle>Onahsa</errTitle>
 							<classPath>
-								<mainClass>net.oijon.algonquin.gui.Launcher</mainClass>
+								<mainClass>net.oijon.onahsa.gui.Launcher</mainClass>
 							</classPath>
 							<jre>
 								<path>../jre</path>
@@ -239,8 +239,8 @@
 								<productVersion>${project.version}.0</productVersion>
 								<txtProductVersion>Onahsa - v${project.version}</txtProductVersion>
 								<productName>Onahsa</productName>
-								<internalName>algonquin</internalName>
-								<originalFilename>algonquin.exe</originalFilename>
+								<internalName>onahsa</internalName>
+								<originalFilename>onahsa.exe</originalFilename>
 							</versionInfo>
 							<messages>
 								<jreVersionErr>JRE 11 or later was not found, and is required to run this application. Please download the latest version from https://www.oracle.com/java/technologies/downloads</jreVersionErr>
